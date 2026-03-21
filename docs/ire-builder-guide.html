@@ -840,7 +840,7 @@ flowchart TD
     <div class="diagram-title">Cluster D — Recursive Reasoning Loop</div>
     <div class="mermaid">
 flowchart TD
-  A([Initialise: Case State + Goal + Model Version]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
+  A(["Initialise: Case State + Goal + Model Version"]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
   B --> C["RETRIEVE<br/>RAG Query + Graph Query"]
   C --> D["ANALYZE<br/>70B Agent temp=0<br/>Retrieval-only mode"]
   D --> E["VERIFY<br/>Retrieval Verifier DETERMINISTIC<br/>Does chunk exist? Is claim recoverable?"]
@@ -850,7 +850,7 @@ flowchart TD
   G --> I["CRITIQUE<br/>Logical consistency?<br/>Gaps identified?"]
   H --> I
   I --> J["SCORE<br/>Update 4-component Evidence Score"]
-  J --> K{Score ≥ threshold<br/>AND ≥3 citations?}
+  J --> K{"Score ≥ threshold<br/>AND ≥3 citations?"}
   K -->|No — continue| L{Iteration ceiling reached?}
   L -->|No| B
   L -->|Yes| M["Flag: Corpus Exhausted<br/>Send to Human Review"]
@@ -933,7 +933,7 @@ flowchart LR
   A["Event 1<br/>Case Open<br/>payload_hash: a1b2<br/>chain_hash: SHA256 a1b2+genesis"] --> B["Event 2<br/>File Ingestion<br/>payload_hash: c3d4<br/>chain_hash: SHA256 c3d4+prev"]
   B --> C["Event 3<br/>Entity Resolution<br/>payload_hash: e5f6<br/>chain_hash: SHA256 e5f6+prev"]
   C --> D["Event N<br/>Human Approval<br/>payload_hash: g7h8<br/>chain_hash: SHA256 g7h8+prev"]
-  D --> E{Daily Anchor<br/>Cluster G active?}
+  D --> E{"Daily Anchor<br/>Cluster G active?"}
   E -->|Yes| F["AWS QLDB / Azure Ledger<br/>External Timestamp of chain_hash"]
   E -->|No| G["Institutional-grade integrity<br/>chain intact internally"]
   F --> H(["Court-Grade Integrity<br/>Independently Verifiable"])
