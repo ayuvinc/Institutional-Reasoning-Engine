@@ -1,0 +1,21 @@
+flowchart LR
+  A(["File Upload"]) --> B{"File Type?"}
+  B -->|PDF text-based| C["PyMuPDF<br/>extract text"]
+  B -->|PDF scanned| D["Tesseract OCR<br/>extract text"]
+  B -->|Excel / CSV| E["pandas<br/>parse rows"]
+  B -->|Email .msg| F["extract-msg<br/>parse headers + body"]
+  B -->|Word .docx| G["python-docx<br/>extract paragraphs"]
+  C --> H["Chunker"]
+  D --> H
+  E --> H
+  F --> H
+  G --> H
+  H --> I["Document-Type Strategy<br/>Clause / Row-Window / Per-Email"]
+  I --> J["Metadata Tagging<br/>chunk_id · source_doc · page_ref<br/>entity_tags · date_range"]
+  J --> K["Embedding Model<br/>BGE-M3 via Ollama"]
+  K --> L["Qdrant Indexer<br/>Case-Scoped Namespace"]
+  L --> M["Entity Extract<br/>Feed to Resolution Queue"]
+  L --> N(["Queryable Evidence"])
+
+  style A fill:#1B3A5C,color:#fff
+  style N fill:#27AE60,color:#fff

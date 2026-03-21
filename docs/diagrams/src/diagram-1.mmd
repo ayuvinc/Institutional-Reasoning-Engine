@@ -1,0 +1,29 @@
+graph TD
+  subgraph BASE["🔒 MANDATORY BASE — Always Active"]
+    B1["B1 Case Isolation"] --- B2["B2 Retrieval Verifier"]
+    B2 --- B3["B3 Evidence Grounder"]
+    B3 --- B4["B4 Human Review Gate"]
+    B4 --- B5["B5 Audit Logger"]
+    B5 --- B6["B6 Hash Chain"]
+    B6 --- B7["B7 Model Pinning"]
+    B7 --- B8["B8 Bias Monitor"]
+  end
+  subgraph CLUSTERS["📦 MODULAR CLUSTERS — Activate as needed"]
+    CA["Cluster A<br/>Documentary"]
+    CB["Cluster B<br/>Behavioural"]
+    CC["Cluster C<br/>Network"]
+    CD["Cluster D<br/>Reasoning"]
+    CE["Cluster E<br/>Privacy"]
+    CF["Cluster F<br/>Memory"]
+    CG["Cluster G<br/>Integrity"]
+  end
+  BASE --> CLUSTERS
+  CA --> CC
+  CA --> CD
+  CB --> CC
+  CC --> CD
+  CD --> CE
+  CD --> CF
+  BASE --> CG
+  style BASE fill:#1B3A5C,color:#fff,stroke:#fff
+  style CLUSTERS fill:#EBF5FB,stroke:#2E6DA4

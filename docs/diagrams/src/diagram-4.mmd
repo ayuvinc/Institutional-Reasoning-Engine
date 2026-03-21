@@ -1,0 +1,26 @@
+flowchart TD
+  A(["Raw Entities from Parser"]) --> B["Tier 1: Exact Match<br/>National ID · Account No · Tax ID"]
+  B --> C{"Exact match found?"}
+  C -->|Yes| D["Auto-Resolve: Merge Nodes<br/>Log to Audit Chain"]
+  D --> E["Notification to Investigator<br/>24hr Override Window"]
+  C -->|No| F["Tier 2: Fuzzy Match<br/>Name variants · Address overlap<br/>Phonetic similarity"]
+  F --> G{"Confidence Score?"}
+  G -->|60–94%| H["BLOCKING: Show HITL Screen<br/>Evidence For + Against + Score"]
+  H --> I{"Investigator Decision"}
+  I -->|Approve Merge| J["Merge Nodes<br/>Log Decision + Evidence"]
+  I -->|Reject| K["Keep Separate<br/>Log Decision"]
+  I -->|Defer| L["Add to Review Queue"]
+  G -->|Below 60%| M["Tier 3: Contextual Match<br/>Shared director · address · agent<br/>Transcript evidence"]
+  M --> N["BLOCKING: Show HITL Screen<br/>Three Options"]
+  N --> O{"Investigator Decision"}
+  O -->|Merge| J
+  O -->|Separate Node| K
+  O -->|Alias Edge| P["Link as Related Party<br/>Not Merged<br/>Log Relationship"]
+  J --> Q(["Graph Build Can Proceed"])
+  K --> Q
+  P --> Q
+
+  style A fill:#1B3A5C,color:#fff
+  style Q fill:#27AE60,color:#fff
+  style H fill:#D4A017,color:#fff
+  style N fill:#D4A017,color:#fff

@@ -1,0 +1,18 @@
+flowchart TD
+  A(["Raw Case Data with PII"]) --> B["Presidio NER + Custom Recognisers<br/>Detect: names · IDs · accounts · spoken-form refs"]
+  B --> C["Token Map Store<br/>In-memory · Encrypted at rest<br/>NEVER leaves environment"]
+  C --> D["Pseudonymised Payload<br/>Names → IND_T001 · Accounts → ACCT_T089<br/>Amounts/dates/types RETAINED"]
+  D --> E["External SOTA API<br/>Claude / GPT-4<br/>Reasons on tokens only"]
+  E --> F["Tokenised Reasoning Output<br/>No real identifiers"]
+  F --> G["Human Checkpoint<br/>Investigator reviews tokenised output<br/>Checks for re-identification risk"]
+  G --> H{"Investigator Approves?"}
+  H -->|No| I["Edit or Reject<br/>Log Decision"]
+  H -->|Yes| J["De-tokeniser<br/>Restores real identifiers<br/>ON-PREMISE ONLY"]
+  J --> K["Final Report with Real Names"]
+  K --> L["Audit Log:<br/>pseudonymisation event + approval + de-tokenisation timestamp"]
+  L --> M(["Case Record Complete"])
+
+  style A fill:#1B3A5C,color:#fff
+  style M fill:#27AE60,color:#fff
+  style G fill:#D4A017,color:#fff
+  style E fill:#2E6DA4,color:#fff

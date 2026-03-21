@@ -1,0 +1,22 @@
+flowchart TD
+  A(["Initialise: Case State + Goal + Model Version"]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
+  B --> C["RETRIEVE<br/>RAG Query + Graph Query"]
+  C --> D["ANALYZE<br/>70B Agent temp=0<br/>Retrieval-only mode"]
+  D --> E["VERIFY<br/>Retrieval Verifier DETERMINISTIC<br/>Does chunk exist? Is claim recoverable?"]
+  E --> F{"Claim passes?"}
+  F -->|Yes| G["GROUND<br/>Attach chunk_id + source + page_ref"]
+  F -->|No| H["Strip Claim<br/>Log to Unverified Register"]
+  G --> I["CRITIQUE<br/>Logical consistency?<br/>Gaps identified?"]
+  H --> I
+  I --> J["SCORE<br/>Update 4-component Evidence Score"]
+  J --> K{"Score ≥ threshold<br/>AND ≥3 citations?"}
+  K -->|No — continue| L{"Iteration ceiling reached?"}
+  L -->|No| B
+  L -->|Yes| M["Flag: Corpus Exhausted<br/>Send to Human Review"]
+  K -->|Yes| N["Draft Finding Generated<br/>With Citation Map"]
+  N --> O(["Human Review Gate"])
+
+  style A fill:#1B3A5C,color:#fff
+  style O fill:#D4A017,color:#fff
+  style M fill:#C0392B,color:#fff
+  style E fill:#2E6DA4,color:#fff

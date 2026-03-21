@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IRE Builder Guide — How to Build an Institutional Reasoning Engine</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 <style>
   :root {
     --navy: #1B3A5C;
@@ -106,6 +105,7 @@
   .diagram-wrap { background: white; border-radius: 10px; padding: 24px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow-x: auto; }
   .diagram-title { font-size: 13px; font-weight: 700; color: var(--mid); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
   .mermaid { min-height: 60px; }
+  .diagram-static { width: 100%; height: auto; display: block; }
 
   /* ── Steps ── */
   .steps { margin: 20px 0; }
@@ -264,37 +264,7 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Full IRE Architecture — Base + 7 Clusters</div>
-    <div class="mermaid">
-graph TD
-  subgraph BASE["🔒 MANDATORY BASE — Always Active"]
-    B1["B1 Case Isolation"] --- B2["B2 Retrieval Verifier"]
-    B2 --- B3["B3 Evidence Grounder"]
-    B3 --- B4["B4 Human Review Gate"]
-    B4 --- B5["B5 Audit Logger"]
-    B5 --- B6["B6 Hash Chain"]
-    B6 --- B7["B7 Model Pinning"]
-    B7 --- B8["B8 Bias Monitor"]
-  end
-  subgraph CLUSTERS["📦 MODULAR CLUSTERS — Activate as needed"]
-    CA["Cluster A<br/>Documentary"]
-    CB["Cluster B<br/>Behavioural"]
-    CC["Cluster C<br/>Network"]
-    CD["Cluster D<br/>Reasoning"]
-    CE["Cluster E<br/>Privacy"]
-    CF["Cluster F<br/>Memory"]
-    CG["Cluster G<br/>Integrity"]
-  end
-  BASE --> CLUSTERS
-  CA --> CC
-  CA --> CD
-  CB --> CC
-  CC --> CD
-  CD --> CE
-  CD --> CF
-  BASE --> CG
-  style BASE fill:#1B3A5C,color:#fff,stroke:#fff
-  style CLUSTERS fill:#EBF5FB,stroke:#2E6DA4
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-1.svg" alt="IRE Mermaid diagram 1" loading="lazy" />
   </div>
 
   <h2 class="section-h">The 8 Mandatory Base Components</h2>
@@ -695,37 +665,7 @@ graph TD
 
   <div class="diagram-wrap">
     <div class="diagram-title">Full Case Lifecycle</div>
-    <div class="mermaid">
-flowchart TD
-  A(["Investigator Opens Case"]) --> B["Case-Scoped Namespace Created<br/>Audit Chain Initialised"]
-  B --> C["Evidence Upload<br/>Documents + Transcripts"]
-  C --> D{"Evidence Type?"}
-  D -->|Documents| E["Cluster A:<br/>Ingest → Chunk → Embed → Index"]
-  D -->|Transcripts| F["Cluster B:<br/>Transcribe → Chunk → PII Scrub → Index"]
-  D -->|Both| G["Both Pipelines Run in Parallel"]
-  E --> H["Entity Extraction"]
-  F --> H
-  G --> H
-  H --> I["Cluster C:<br/>Entity Resolution HITL"]
-  I --> J["Graph Build:<br/>Nodes + Edges + Relationships"]
-  J --> K["Cluster D:<br/>Recursive Reasoning Loop"]
-  K --> L{"Evidence Score ≥ 0.80?"}
-  L -->|No| M["Iterate:<br/>New Queries + Evidence"]
-  M --> K
-  L -->|Yes| N["Draft Report Generated<br/>60-90 seconds"]
-  N --> O["Human Review Gate:<br/>Section-by-Section Approval"]
-  O --> P{"All Sections Approved?"}
-  P -->|No| Q["Investigator Edits + Re-approves"]
-  Q --> P
-  P -->|Yes| R["Final Report Locked<br/>Citation Map Appended"]
-  R --> S["Audit Chain Complete:<br/>Report Hash Stored"]
-  S --> T(["Case Closed"])
-
-  style A fill:#1B3A5C,color:#fff
-  style T fill:#27AE60,color:#fff
-  style O fill:#D4A017,color:#fff
-  style I fill:#2E6DA4,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-2.svg" alt="IRE Mermaid diagram 2" loading="lazy" />
   </div>
 
   <h2 class="section-h">What Happens at Each Stage</h2>
@@ -753,29 +693,7 @@ flowchart TD
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster A — Document Ingestion Pipeline</div>
-    <div class="mermaid">
-flowchart LR
-  A(["File Upload"]) --> B{"File Type?"}
-  B -->|PDF text-based| C["PyMuPDF<br/>extract text"]
-  B -->|PDF scanned| D["Tesseract OCR<br/>extract text"]
-  B -->|Excel / CSV| E["pandas<br/>parse rows"]
-  B -->|Email .msg| F["extract-msg<br/>parse headers + body"]
-  B -->|Word .docx| G["python-docx<br/>extract paragraphs"]
-  C --> H["Chunker"]
-  D --> H
-  E --> H
-  F --> H
-  G --> H
-  H --> I["Document-Type Strategy<br/>Clause / Row-Window / Per-Email"]
-  I --> J["Metadata Tagging<br/>chunk_id · source_doc · page_ref<br/>entity_tags · date_range"]
-  J --> K["Embedding Model<br/>BGE-M3 via Ollama"]
-  K --> L["Qdrant Indexer<br/>Case-Scoped Namespace"]
-  L --> M["Entity Extract<br/>Feed to Resolution Queue"]
-  L --> N(["Queryable Evidence"])
-
-  style A fill:#1B3A5C,color:#fff
-  style N fill:#27AE60,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-3.svg" alt="IRE Mermaid diagram 3" loading="lazy" />
   </div>
 
   <div class="callout warn">
@@ -793,34 +711,7 @@ flowchart LR
 
   <div class="diagram-wrap">
     <div class="diagram-title">Three-Tier Entity Resolution</div>
-    <div class="mermaid">
-flowchart TD
-  A(["Raw Entities from Parser"]) --> B["Tier 1: Exact Match<br/>National ID · Account No · Tax ID"]
-  B --> C{"Exact match found?"}
-  C -->|Yes| D["Auto-Resolve: Merge Nodes<br/>Log to Audit Chain"]
-  D --> E["Notification to Investigator<br/>24hr Override Window"]
-  C -->|No| F["Tier 2: Fuzzy Match<br/>Name variants · Address overlap<br/>Phonetic similarity"]
-  F --> G{"Confidence Score?"}
-  G -->|60–94%| H["BLOCKING: Show HITL Screen<br/>Evidence For + Against + Score"]
-  H --> I{"Investigator Decision"}
-  I -->|Approve Merge| J["Merge Nodes<br/>Log Decision + Evidence"]
-  I -->|Reject| K["Keep Separate<br/>Log Decision"]
-  I -->|Defer| L["Add to Review Queue"]
-  G -->|Below 60%| M["Tier 3: Contextual Match<br/>Shared director · address · agent<br/>Transcript evidence"]
-  M --> N["BLOCKING: Show HITL Screen<br/>Three Options"]
-  N --> O{"Investigator Decision"}
-  O -->|Merge| J
-  O -->|Separate Node| K
-  O -->|Alias Edge| P["Link as Related Party<br/>Not Merged<br/>Log Relationship"]
-  J --> Q(["Graph Build Can Proceed"])
-  K --> Q
-  P --> Q
-
-  style A fill:#1B3A5C,color:#fff
-  style Q fill:#27AE60,color:#fff
-  style H fill:#D4A017,color:#fff
-  style N fill:#D4A017,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-4.svg" alt="IRE Mermaid diagram 4" loading="lazy" />
   </div>
 
   <div class="callout danger">
@@ -838,30 +729,7 @@ flowchart TD
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster D — Recursive Reasoning Loop</div>
-    <div class="mermaid">
-flowchart TD
-  A(["Initialise: Case State + Goal + Model Version"]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
-  B --> C["RETRIEVE<br/>RAG Query + Graph Query"]
-  C --> D["ANALYZE<br/>70B Agent temp=0<br/>Retrieval-only mode"]
-  D --> E["VERIFY<br/>Retrieval Verifier DETERMINISTIC<br/>Does chunk exist? Is claim recoverable?"]
-  E --> F{"Claim passes?"}
-  F -->|Yes| G["GROUND<br/>Attach chunk_id + source + page_ref"]
-  F -->|No| H["Strip Claim<br/>Log to Unverified Register"]
-  G --> I["CRITIQUE<br/>Logical consistency?<br/>Gaps identified?"]
-  H --> I
-  I --> J["SCORE<br/>Update 4-component Evidence Score"]
-  J --> K{"Score ≥ threshold<br/>AND ≥3 citations?"}
-  K -->|No — continue| L{"Iteration ceiling reached?"}
-  L -->|No| B
-  L -->|Yes| M["Flag: Corpus Exhausted<br/>Send to Human Review"]
-  K -->|Yes| N["Draft Finding Generated<br/>With Citation Map"]
-  N --> O(["Human Review Gate"])
-
-  style A fill:#1B3A5C,color:#fff
-  style O fill:#D4A017,color:#fff
-  style M fill:#C0392B,color:#fff
-  style E fill:#2E6DA4,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-5.svg" alt="IRE Mermaid diagram 5" loading="lazy" />
   </div>
 
   <h2 class="section-h">Evidence Score Thresholds</h2>
@@ -891,26 +759,7 @@ flowchart TD
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster E — Pseudonymisation Pipeline</div>
-    <div class="mermaid">
-flowchart TD
-  A(["Raw Case Data with PII"]) --> B["Presidio NER + Custom Recognisers<br/>Detect: names · IDs · accounts · spoken-form refs"]
-  B --> C["Token Map Store<br/>In-memory · Encrypted at rest<br/>NEVER leaves environment"]
-  C --> D["Pseudonymised Payload<br/>Names → IND_T001 · Accounts → ACCT_T089<br/>Amounts/dates/types RETAINED"]
-  D --> E["External SOTA API<br/>Claude / GPT-4<br/>Reasons on tokens only"]
-  E --> F["Tokenised Reasoning Output<br/>No real identifiers"]
-  F --> G["Human Checkpoint<br/>Investigator reviews tokenised output<br/>Checks for re-identification risk"]
-  G --> H{"Investigator Approves?"}
-  H -->|No| I["Edit or Reject<br/>Log Decision"]
-  H -->|Yes| J["De-tokeniser<br/>Restores real identifiers<br/>ON-PREMISE ONLY"]
-  J --> K["Final Report with Real Names"]
-  K --> L["Audit Log:<br/>pseudonymisation event + approval + de-tokenisation timestamp"]
-  L --> M(["Case Record Complete"])
-
-  style A fill:#1B3A5C,color:#fff
-  style M fill:#27AE60,color:#fff
-  style G fill:#D4A017,color:#fff
-  style E fill:#2E6DA4,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-6.svg" alt="IRE Mermaid diagram 6" loading="lazy" />
   </div>
 
   <div class="callout warn">
@@ -928,21 +777,7 @@ flowchart TD
 
   <div class="diagram-wrap">
     <div class="diagram-title">Hash-Chain Immutability Design</div>
-    <div class="mermaid">
-flowchart LR
-  A["Event 1<br/>Case Open<br/>payload_hash: a1b2<br/>chain_hash: SHA256 a1b2+genesis"] --> B["Event 2<br/>File Ingestion<br/>payload_hash: c3d4<br/>chain_hash: SHA256 c3d4+prev"]
-  B --> C["Event 3<br/>Entity Resolution<br/>payload_hash: e5f6<br/>chain_hash: SHA256 e5f6+prev"]
-  C --> D["Event N<br/>Human Approval<br/>payload_hash: g7h8<br/>chain_hash: SHA256 g7h8+prev"]
-  D --> E{"Daily Anchor<br/>Cluster G active?"}
-  E -->|Yes| F["AWS QLDB / Azure Ledger<br/>External Timestamp of chain_hash"]
-  E -->|No| G["Institutional-grade integrity<br/>chain intact internally"]
-  F --> H(["Court-Grade Integrity<br/>Independently Verifiable"])
-  G --> I(["Institutional-Grade Integrity<br/>Tamper detectable internally"])
-
-  style A fill:#1B3A5C,color:#fff
-  style H fill:#27AE60,color:#fff
-  style I fill:#2E6DA4,color:#fff
-    </div>
+    <img class="diagram-static" src="./diagrams/diagram-7.svg" alt="IRE Mermaid diagram 7" loading="lazy" />
   </div>
 
   <h2 class="section-h">What Gets Logged</h2>
@@ -1246,21 +1081,6 @@ function toggleAcc(header) {
     arrow.classList.add('open');
   }
 }
-
-// ── Init Mermaid ──────────────────────────────────────────────
-mermaid.initialize({
-  startOnLoad: true,
-  theme: 'default',
-  themeVariables: {
-    primaryColor: '#1B3A5C',
-    primaryTextColor: '#ffffff',
-    primaryBorderColor: '#2E6DA4',
-    lineColor: '#2E6DA4',
-    secondaryColor: '#D5E8F0',
-    tertiaryColor: '#F4F6F9'
-  },
-  flowchart: { htmlLabels: true, curve: 'basis' }
-});
 
 // ── Set initial active nav ────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {

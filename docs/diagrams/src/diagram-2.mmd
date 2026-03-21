@@ -1,0 +1,29 @@
+flowchart TD
+  A(["Investigator Opens Case"]) --> B["Case-Scoped Namespace Created<br/>Audit Chain Initialised"]
+  B --> C["Evidence Upload<br/>Documents + Transcripts"]
+  C --> D{"Evidence Type?"}
+  D -->|Documents| E["Cluster A:<br/>Ingest → Chunk → Embed → Index"]
+  D -->|Transcripts| F["Cluster B:<br/>Transcribe → Chunk → PII Scrub → Index"]
+  D -->|Both| G["Both Pipelines Run in Parallel"]
+  E --> H["Entity Extraction"]
+  F --> H
+  G --> H
+  H --> I["Cluster C:<br/>Entity Resolution HITL"]
+  I --> J["Graph Build:<br/>Nodes + Edges + Relationships"]
+  J --> K["Cluster D:<br/>Recursive Reasoning Loop"]
+  K --> L{"Evidence Score ≥ 0.80?"}
+  L -->|No| M["Iterate:<br/>New Queries + Evidence"]
+  M --> K
+  L -->|Yes| N["Draft Report Generated<br/>60-90 seconds"]
+  N --> O["Human Review Gate:<br/>Section-by-Section Approval"]
+  O --> P{"All Sections Approved?"}
+  P -->|No| Q["Investigator Edits + Re-approves"]
+  Q --> P
+  P -->|Yes| R["Final Report Locked<br/>Citation Map Appended"]
+  R --> S["Audit Chain Complete:<br/>Report Hash Stored"]
+  S --> T(["Case Closed"])
+
+  style A fill:#1B3A5C,color:#fff
+  style T fill:#27AE60,color:#fff
+  style O fill:#D4A017,color:#fff
+  style I fill:#2E6DA4,color:#fff
