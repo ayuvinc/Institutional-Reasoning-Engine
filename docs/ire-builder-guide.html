@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IRE Builder Guide — How to Build an Institutional Reasoning Engine</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
 <style>
   :root {
     --navy: #1B3A5C;
@@ -105,7 +106,6 @@
   .diagram-wrap { background: white; border-radius: 10px; padding: 24px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow-x: auto; }
   .diagram-title { font-size: 13px; font-weight: 700; color: var(--mid); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
   .mermaid { min-height: 60px; }
-  .diagram-static { width: 100%; height: auto; display: block; }
 
   /* ── Steps ── */
   .steps { margin: 20px 0; }
@@ -159,39 +159,17 @@
 </div>
 
 <!-- Sidebar -->
-<nav class="sidebar">
-  <div class="sidebar-section">Overview</div>
-  <a href="#" onclick="show('intro')">What Is an IRE?</a>
-  <a href="#" onclick="show('architecture')">Architecture at a Glance</a>
-
-  <div class="sidebar-section">Build Guide</div>
-  <a href="#" onclick="show('prerequisites')">Prerequisites</a>
-  <a href="#" onclick="show('tools')">Tools & Subscriptions</a>
-  <a href="#" onclick="show('costs')">Cost Breakdown</a>
-  <a href="#" onclick="show('phases')">Build Phases</a>
-
-  <div class="sidebar-section">Workflows</div>
-  <a href="#" onclick="show('flow-case')">Case Flow</a>
-  <a href="#" onclick="show('flow-ingestion')">Document Ingestion</a>
-  <a href="#" onclick="show('flow-entity')">Entity Resolution</a>
-  <a href="#" onclick="show('flow-reasoning')">Reasoning Loop</a>
-  <a href="#" onclick="show('flow-privacy')">Privacy Gateway</a>
-  <a href="#" onclick="show('flow-audit')">Audit Chain</a>
-
-  <div class="sidebar-section">Clusters</div>
-  <a href="#" onclick="show('cluster-a')" class="sub">Cluster A — Documentary</a>
-  <a href="#" onclick="show('cluster-b')" class="sub">Cluster B — Behavioural</a>
-  <a href="#" onclick="show('cluster-c')" class="sub">Cluster C — Network</a>
-  <a href="#" onclick="show('cluster-d')" class="sub">Cluster D — Reasoning</a>
-  <a href="#" onclick="show('cluster-e')" class="sub">Cluster E — Privacy</a>
-  <a href="#" onclick="show('cluster-f')" class="sub">Cluster F — Memory</a>
-  <a href="#" onclick="show('cluster-g')" class="sub">Cluster G — Integrity</a>
-
-  <div class="sidebar-section">AI Tools</div>
-  <a href="#" onclick="show('ai-guide')">Building With AI</a>
-  <a href="#" onclick="show('profiles')">Deployment Profiles</a>
-  <a href="#" onclick="show('faq')">FAQ</a>
-</nav>
+<nav>
+      <button class="active" onclick="show('s-intro')">Introduction</button>
+      <button onclick="show('s-architecture')">Architecture</button>
+      <button onclick="show('s-flow-case')">Case Flow</button>
+      <button onclick="show('s-flow-ingestion')">Doc Ingestion</button>
+      <button onclick="show('s-flow-entity')">Entity Resolution</button>
+      <button onclick="show('s-flow-reasoning')">Reasoning Loop</button>
+      <button onclick="show('s-flow-privacy')">Privacy Gateway</button>
+      <button onclick="show('s-flow-audit')">Audit Chain</button>
+      <button onclick="show('s-profiles')">Deployment Profiles</button>
+    </nav>
 
 <!-- Main Content -->
 <div class="main">
@@ -247,9 +225,8 @@
   <p>You are building this or commissioning someone to build it. You may not write code. You need to understand:</p>
   <ul>
     <li>What each component does in plain English</li>
-    <li>What tools and services you need to subscribe to</li>
-    <li>What it costs at different scales</li>
-    <li>How to use AI tools to build it faster</li>
+    <li>How each cluster connects to the base components</li>
+    <li>How to use AI tools to accelerate your build</li>
     <li>What the workflows look like end to end</li>
   </ul>
   <p>This guide covers all of that. Use the sidebar to navigate by topic.</p>
@@ -264,7 +241,37 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Full IRE Architecture — Base + 7 Clusters</div>
-    <img class="diagram-static" src="./diagrams/diagram-1.svg" alt="IRE Mermaid diagram 1" loading="lazy" />
+    <div class="mermaid">
+graph TD
+  subgraph BASE["🔒 MANDATORY BASE — Always Active"]
+    B1[B1 Case Isolation] --- B2[B2 Retrieval Verifier]
+    B2 --- B3[B3 Evidence Grounder]
+    B3 --- B4[B4 Human Review Gate]
+    B4 --- B5[B5 Audit Logger]
+    B5 --- B6[B6 Hash Chain]
+    B6 --- B7[B7 Model Pinning]
+    B7 --- B8[B8 Bias Monitor]
+  end
+  subgraph CLUSTERS["📦 MODULAR CLUSTERS — Activate as needed"]
+    CA["Cluster A<br/>Documentary"]
+    CB["Cluster B<br/>Behavioural"]
+    CC["Cluster C<br/>Network"]
+    CD["Cluster D<br/>Reasoning"]
+    CE["Cluster E<br/>Privacy"]
+    CF["Cluster F<br/>Memory"]
+    CG["Cluster G<br/>Integrity"]
+  end
+  BASE --> CLUSTERS
+  CA --> CC
+  CA --> CD
+  CB --> CC
+  CC --> CD
+  CD --> CE
+  CD --> CF
+  BASE --> CG
+  style BASE fill:#1B3A5C,color:#fff,stroke:#fff
+  style CLUSTERS fill:#EBF5FB,stroke:#2E6DA4
+    </div>
   </div>
 
   <h2 class="section-h">The 8 Mandatory Base Components</h2>
@@ -297,375 +304,43 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- PREREQUISITES -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-prerequisites">
-  <h1 class="page-title">Prerequisites</h1>
-  <p class="page-subtitle">Before you write a single line of code or sign up for any tool, three things must be true. These are not optional — the system encodes your methodology, and if no methodology exists, there is nothing to encode.</p>
-
-  <div class="callout warn">
-    <div class="callout-label">Do This First</div>
-    <p>Most teams skip these prerequisites and then wonder why the AI produces irrelevant or inconsistent outputs. The IRE encodes your investigation methodology — if that methodology is not written down, the build will fail at the hardest moment.</p>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h4>Document Your Investigation Methodology</h4>
-        <p>Write down exactly how your investigations work today: how a case is opened, what evidence types you collect, what constitutes a finding, what your output documents look like (STR, HLIR, case closure memo, etc.). This becomes the specification the system is built against. Use Claude or ChatGPT to help draft this if you don't have it written yet — describe your process in conversation and ask it to structure it as a methodology document.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h4>Complete a Data Inventory</h4>
-        <p>List every type of evidence you routinely handle: bank statement CSVs, KYC PDFs, email exports, interview recordings, transaction logs, corporate registry documents. For each type, note: what format it comes in, where it is stored today, what personal data it contains. This determines which clusters you need and shapes your Cluster E (privacy) design.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h4>Get Legal & Compliance Sign-Off</h4>
-        <p>Before any AI touches investigation data, your legal and compliance team must sign off on three things: (a) human review gate requirements in your jurisdiction, (b) whether pseudonymisation is sufficient for your data protection obligations, (c) whether AI-generated outputs are admissible in your regulatory proceedings. This is not a day-one problem — but it must be resolved before Phase 6 (report generation) goes live.</p>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="section-h">Technical Prerequisites</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Prerequisite</th><th>What You Need</th><th>If You Don't Have It</th></tr>
-      <tr><td>Server / Cloud Environment</td><td>A Linux server or cloud VM (AWS, GCP, Azure, or Indian providers like Jio Cloud / Tata TCS) with at least 32GB RAM for running local AI models.</td><td>Start with a cloud VM. AWS EC2 g4dn.2xlarge (~$0.75/hr or ~₹63/hr) is a good starting point. Spin up only when running.</td></tr>
-      <tr><td>Python 3.10+</td><td>The entire stack is Python-based. You don't need to write it yourself — AI tools will write it for you — but your server needs Python installed.</td><td>Any modern Linux VM comes with Python. Use Ubuntu 22.04 LTS.</td></tr>
-      <tr><td>Docker</td><td>Most components (Qdrant, Neo4j, n8n) run as Docker containers. Makes setup and upgrades repeatable.</td><td>Install Docker Desktop on your laptop for development, Docker Engine on your server for production.</td></tr>
-      <tr><td>Git & GitHub account</td><td>Version control for your code. Also lets you use AI coding tools (Cursor, Claude Code) most effectively.</td><td>Free. Sign up at github.com. Use Claude or ChatGPT to learn the 5 commands you actually need.</td></tr>
-      <tr><td>Domain Name (optional)</td><td>If you want a web interface for investigators to access the system.</td><td>~$12/year from Namecheap or GoDaddy.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Skills You Need on Your Team</h2>
-  <div class="callout success">
-    <div class="callout-label">Good News for Non-Technical Founders</div>
-    <p>With modern AI coding tools (Claude Code, Cursor, GitHub Copilot), you can build the majority of this system with 1 developer or even as a solo technical co-founder. The architecture is well-defined — the hard part is design, not code.</p>
-  </div>
-  <div class="cards">
-    <div class="card green"><h4>You (Founder / Domain Expert)</h4><p>Investigation methodology, compliance requirements, user stories, QA testing of outputs. You cannot outsource this — it is what makes the system work.</p></div>
-    <div class="card"><h4>1 Developer (Full-Stack Python)</h4><p>Builds the pipeline, integrates the tools, writes the orchestration code. Needs Python + basic DevOps. AI tools handle 60-70% of the actual code writing.</p></div>
-    <div class="card gold"><h4>Legal Counsel (Part-Time)</h4><p>Reviews AI-in-investigation policies, data processing agreements, admissibility questions. One engagement to set up, periodic reviews thereafter.</p></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- TOOLS -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-tools">
-  <h1 class="page-title">Tools <span>& Subscriptions</span></h1>
-  <p class="page-subtitle">Every tool you need to build the full IRE stack. Organised by component, with free and paid options at each layer.</p>
-
-  <h2 class="section-h">Vector Database (Case-Scoped Evidence Store)</h2>
-  <div class="callout">
-    <div class="callout-label">What This Is</div>
-    <p>The vector database stores all your case documents as mathematical representations so they can be searched by meaning, not just keyword. One namespace per case = isolation by architecture.</p>
-  </div>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>Type</th><th>Cost</th><th>Best For</th><th>Notes</th></tr>
-      <tr><td><strong>Qdrant</strong></td><td>Open Source</td><td>Free (self-hosted)<br>$25/mo cloud</td><td>Most teams — best balance of features and simplicity</td><td>Native namespace isolation. Excellent Python SDK. Our recommended default.</td></tr>
-      <tr><td>ChromaDB</td><td>Open Source</td><td>Free</td><td>Development / small deployments</td><td>Simpler than Qdrant. Less production-ready. Good for prototyping.</td></tr>
-      <tr><td>Weaviate</td><td>Open Source / Cloud</td><td>Free / $25+/mo</td><td>Larger teams needing more query features</td><td>More complex setup. Better multi-tenancy features at scale.</td></tr>
-      <tr><td>Pinecone</td><td>Cloud SaaS</td><td>Free tier / $70+/mo</td><td>Teams that don't want to manage infrastructure</td><td>No self-hosting. Data leaves your environment — check jurisdiction requirements.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Graph Database (Entity & Network Intelligence)</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>Type</th><th>Cost</th><th>Best For</th><th>Notes</th></tr>
-      <tr><td><strong>Neo4j Community</strong></td><td>Open Source</td><td>Free (self-hosted)</td><td>Most teams — standard choice</td><td>Mature Cypher query language. Strong Python SDK. Self-hosted = data stays on-premise.</td></tr>
-      <tr><td>Memgraph</td><td>Open Source</td><td>Free (self-hosted)</td><td>Real-time streaming graph updates</td><td>Faster for continuous transaction feeds. Compatible with Cypher.</td></tr>
-      <tr><td>Neo4j AuraDB</td><td>Cloud SaaS</td><td>Free tier / $65+/mo</td><td>Teams avoiding infrastructure management</td><td>Managed cloud. Check data residency before using for investigation data.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Local AI Models (On-Premise Reasoning)</h2>
-  <div class="callout warn">
-    <div class="callout-label">Why Local Models Matter</div>
-    <p>Investigation data is sensitive. The majority of your AI reasoning should happen on local models — data never leaves your environment. External AI (SOTA API) is used only for final risk narrative generation, always pseudonymised first.</p>
-  </div>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Models to Use</th><th>Hardware Needed</th></tr>
-      <tr><td><strong>Ollama</strong></td><td>Runs local LLMs on your machine or server. Simplest setup available.</td><td>Free</td><td>Llama 3.1 70B (Agent tier), Llama 3.1 8B (Orchestration tier)</td><td>70B: 40GB+ GPU RAM. 8B: 8GB GPU RAM or fast CPU.</td></tr>
-      <tr><td>LM Studio</td><td>Desktop app for running local models. Good for development/testing.</td><td>Free</td><td>Same models as Ollama</td><td>Same requirements</td></tr>
-      <tr><td>vLLM</td><td>High-performance serving for production deployments. Faster inference.</td><td>Free (self-hosted)</td><td>Any HuggingFace model</td><td>NVIDIA GPU required for production speed</td></tr>
-      <tr><td>Embedding Model</td><td>Converts text to vectors for semantic search.</td><td>Free</td><td>BGE-M3 or nomic-embed-text (both via Ollama)</td><td>Runs on CPU — no GPU needed</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">External AI APIs (SOTA Reasoning — Pseudonymised Only)</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Provider</th><th>Models</th><th>Cost (approx)</th><th>INR Equivalent</th><th>Use For</th></tr>
-      <tr><td><strong>Anthropic</strong></td><td>Claude 3.5 Sonnet / Claude 3 Opus</td><td>$3–$15 per million tokens</td><td>₹250–₹1,250 per million tokens</td><td>Final risk narrative generation, HLIR synthesis</td></tr>
-      <tr><td>OpenAI</td><td>GPT-4o / GPT-4 Turbo</td><td>$5–$10 per million tokens</td><td>₹420–₹840 per million tokens</td><td>Same as above — pick one provider</td></tr>
-      <tr><td>Google</td><td>Gemini 1.5 Pro</td><td>$3.50 per million tokens</td><td>₹295 per million tokens</td><td>Good for long-context document analysis</td></tr>
-      <tr><td>Sarvam AI</td><td>Sarvam-2B (Indian languages)</td><td>~$0.50 per million tokens</td><td>₹42 per million tokens</td><td>Hindi/regional language case documents</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Pipeline Orchestration & Workflow</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>n8n</strong></td><td>Visual workflow builder. Connects all your components without writing orchestration code from scratch.</td><td>Free (self-hosted) / $20+/mo cloud</td><td>Best for non-technical teams. Self-host for data security.</td></tr>
-      <tr><td>LangChain</td><td>Python framework for building AI pipelines. More code, more control.</td><td>Free (open source)</td><td>Developer-facing. Your developer will use this.</td></tr>
-      <tr><td>LangGraph</td><td>Extension of LangChain specifically for agentic reasoning loops (the recursive reasoning in Cluster D).</td><td>Free (open source)</td><td>Best option for implementing the Planner-Analyzer-Critic loop.</td></tr>
-      <tr><td>Google ADK</td><td>Google's Agent Development Kit — multi-agent Python framework on Cloud Run.</td><td>Free (pay for Cloud Run compute)</td><td>Good if you're on Google Cloud infrastructure.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">PII Detection & Pseudonymisation (Cluster E)</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>Microsoft Presidio</strong></td><td>Open-source PII detection and anonymisation. Supports custom recognisers for investigation-specific entities.</td><td>Free (open source)</td><td>Add custom recognisers for: account numbers, informal name references, colloquial location markers. Runs 100% on-premise.</td></tr>
-      <tr><td>spaCy NER</td><td>Named entity recognition for extracting names, organisations, locations.</td><td>Free (open source)</td><td>Use as a component within Presidio, not as a standalone replacement.</td></tr>
-      <tr><td>AWS Comprehend</td><td>Managed PII detection service.</td><td>$0.0001 per unit</td><td>Sends data to AWS — only use for non-sensitive preprocessing. Not for production investigation data.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Document Processing & OCR</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>PyMuPDF (fitz)</strong></td><td>Fast PDF text extraction. Handles most bank statements, contracts, KYC documents.</td><td>Free (open source)</td><td>First choice for text-based PDFs.</td></tr>
-      <tr><td>Tesseract OCR</td><td>Extracts text from scanned PDFs and images.</td><td>Free (open source)</td><td>Required for scanned documents. Slower than PyMuPDF.</td></tr>
-      <tr><td>AWS Textract</td><td>Managed OCR with table extraction. Best for complex bank statement layouts.</td><td>$1.50 per 1,000 pages / ₹126 per 1,000 pages</td><td>Send only non-sensitive documents, or pseudonymise before sending.</td></tr>
-      <tr><td>unstructured.io</td><td>Handles mixed document types (PDF, DOCX, XLSX, email) with one API.</td><td>Free (open source) / $0.002/page cloud</td><td>Best for teams dealing with many document types.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Observability & Monitoring</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>LangSmith</strong></td><td>Traces every LLM call — what was sent, what was returned, how long it took. Essential for debugging and audit.</td><td>Free tier / $39+/mo</td><td>First tool to add after basic pipeline works. Saves enormous debugging time.</td></tr>
-      <tr><td>OpenTelemetry</td><td>Open standard for tracing. Feeds into any monitoring backend (Grafana, Datadog).</td><td>Free (open source)</td><td>More complex setup but vendor-neutral.</td></tr>
-      <tr><td>Grafana + Prometheus</td><td>Dashboards for system health, latency, error rates.</td><td>Free (self-hosted)</td><td>Add after you have basic pipeline working.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Audit Chain & Integrity (Cluster G)</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>PostgreSQL</strong></td><td>Stores the hash-chain audit log. Append-only table design enforces tamper-evidence at the DB level.</td><td>Free (open source)</td><td>Your first choice for the audit log. Simple, reliable, self-hosted.</td></tr>
-      <tr><td>AWS QLDB</td><td>Managed cryptographic ledger for external notarisation (Cluster G).</td><td>$0.10/GB storage / $0.35 per million I/Os</td><td>Use only for G1 external anchor — not for main audit log.</td></tr>
-      <tr><td>Azure Confidential Ledger</td><td>Similar to QLDB — tamper-proof ledger for external anchoring.</td><td>$0.25/GB storage</td><td>Prefer if your stack is Azure-based.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Speech-to-Text (Cluster B — Interview Transcripts)</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Does</th><th>Cost</th><th>Notes</th></tr>
-      <tr><td><strong>Whisper (OpenAI)</strong></td><td>Local speech-to-text model. Runs on-premise — audio never leaves your environment.</td><td>Free (open source)</td><td>Best choice for sensitive interview recordings. Run via Faster-Whisper for speed.</td></tr>
-      <tr><td>Deepgram</td><td>Cloud speech-to-text API. Faster than local Whisper with speaker diarisation.</td><td>$0.0043/min / ₹0.36/min</td><td>Only use if recordings are not sensitive or already pseudonymised at source.</td></tr>
-      <tr><td>Sarvam AI STT</td><td>Indian language speech-to-text.</td><td>~₹1 per minute</td><td>Use for Hindi/regional language interview recordings.</td></tr>
-    </table>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- COSTS -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-costs">
-  <h1 class="page-title">Cost <span>Breakdown</span></h1>
-  <p class="page-subtitle">What it actually costs to build and run an IRE at different scales. USD primary, INR in brackets.</p>
-
-  <div class="callout success">
-    <div class="callout-label">The Honest Summary</div>
-    <p>The majority of the stack is free and open source. Your main costs are: cloud compute for local AI models ($100–$400/month depending on scale), SOTA API calls for final reasoning ($500–$1,500/month at 200 cases/month), and developer time to build it. Infrastructure cost for a functioning Profile 3 system can be under $150/month.</p>
-  </div>
-
-  <h2 class="section-h">One-Time Build Costs</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Item</th><th>USD</th><th>INR</th><th>Notes</th></tr>
-      <tr><td>Developer time (Profile 3 MVP build)</td><td>$3,000–$8,000</td><td>₹2.5L–₹6.7L</td><td>3–6 weeks for 1 senior Python developer using AI tools. Significantly less with Claude Code / Cursor.</td></tr>
-      <tr><td>Legal review (AI-in-investigation policies)</td><td>$500–$2,000</td><td>₹42K–₹1.7L</td><td>One-time setup plus periodic reviews. India: ₹50K–₹1L for a tech-specialist firm.</td></tr>
-      <tr><td>Security review</td><td>$1,000–$3,000</td><td>₹84K–₹2.5L</td><td>Penetration test + architecture review. Often required before production in regulated institutions.</td></tr>
-      <tr><td>Domain + SSL</td><td>$15–$50/year</td><td>₹1,260–₹4,200/year</td><td>If deploying web interface for investigators.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Monthly Running Costs by Profile</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Profile</th><th>Cases/Month</th><th>USD/Month</th><th>INR/Month</th><th>Main Cost Driver</th></tr>
-      <tr><td><strong>Profile 1 — Minimal</strong></td><td>1–20</td><td>$20–$50</td><td>₹1,680–₹4,200</td><td>Cloud VM only (small). No AI API cost.</td></tr>
-      <tr><td><strong>Profile 2 — Interview-Led</strong></td><td>10–50</td><td>$30–$80</td><td>₹2,520–₹6,720</td><td>Cloud VM + Whisper STT compute.</td></tr>
-      <tr><td><strong>Profile 3 — Document Investigation</strong></td><td>20–100</td><td>$80–$200</td><td>₹6,720–₹16,800</td><td>Cloud VM + optional SOTA API for complex cases.</td></tr>
-      <tr><td><strong>Profile 4 — Corporate Fraud</strong></td><td>50–200</td><td>$200–$500</td><td>₹16,800–₹42,000</td><td>Cloud VM with 70B GPU model + Neo4j.</td></tr>
-      <tr><td><strong>Profile 5 — Financial Crime</strong></td><td>100–500</td><td>$600–$2,000</td><td>₹50,400–₹1,68,000</td><td>GPU compute + SOTA API ($500–$1,500).</td></tr>
-      <tr><td><strong>Profile 6 — Enterprise Forensic</strong></td><td>500+</td><td>$2,000–$6,000</td><td>₹1,68,000–₹5,04,000</td><td>Full stack + fine-tuning compute + notarisation.</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Tool-by-Tool Cost Reference</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>Free Tier</th><th>Paid Tier</th><th>INR (Paid)</th><th>Required For</th></tr>
-      <tr><td>Qdrant (self-hosted)</td><td>Free</td><td>Free</td><td>Free</td><td>All profiles</td></tr>
-      <tr><td>Neo4j Community</td><td>Free</td><td>Free</td><td>Free</td><td>Profiles 3–6</td></tr>
-      <tr><td>Ollama + Llama 3.1 8B</td><td>Free</td><td>Free</td><td>Free</td><td>All profiles (CPU)</td></tr>
-      <tr><td>Ollama + Llama 3.1 70B</td><td>Free</td><td>~$150–400/mo GPU compute</td><td>₹12,600–₹33,600/mo</td><td>Profiles 4–6</td></tr>
-      <tr><td>Presidio (PII)</td><td>Free</td><td>Free</td><td>Free</td><td>Profiles 5–6</td></tr>
-      <tr><td>Whisper STT</td><td>Free</td><td>Free</td><td>Free</td><td>Profiles 2–6</td></tr>
-      <tr><td>n8n (self-hosted)</td><td>Free</td><td>Free</td><td>Free</td><td>All profiles</td></tr>
-      <tr><td>LangSmith</td><td>Free (limited)</td><td>$39/mo</td><td>₹3,276/mo</td><td>Recommended all</td></tr>
-      <tr><td>PostgreSQL (self-hosted)</td><td>Free</td><td>Free</td><td>Free</td><td>All profiles</td></tr>
-      <tr><td>Claude API (SOTA)</td><td>No</td><td>$3–15 per M tokens</td><td>₹252–₹1,260 per M tokens</td><td>Profiles 5–6</td></tr>
-      <tr><td>AWS QLDB (notarisation)</td><td>No</td><td>~$5–20/mo</td><td>₹420–₹1,680/mo</td><td>Profile 6 only</td></tr>
-    </table>
-  </div>
-
-  <div class="callout">
-    <div class="callout-label">Cost Optimisation Tips</div>
-    <p><strong>Use spot/preemptible instances</strong> for GPU compute — 60–70% cheaper. <strong>Only run the 70B model when needed</strong> — use 8B for orchestration tasks. <strong>Batch SOTA API calls</strong> — one call per section, not one per claim. <strong>Cache embeddings</strong> — documents don't need re-embedding unless they change.</p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- BUILD PHASES -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-phases">
-  <h1 class="page-title">Build <span>Phases</span></h1>
-  <p class="page-subtitle">The recommended build sequence. Each phase delivers standalone value — you do not need to finish everything before you get something useful.</p>
-
-  <div class="phase-bar">
-    <div class="phase-item" style="background:#1B3A5C" onclick="jumpPhase('p1')">Phase 1<br><small>Base</small></div>
-    <div class="phase-item" style="background:#2E6DA4" onclick="jumpPhase('p2')">Phase 2<br><small>Cluster A</small></div>
-    <div class="phase-item" style="background:#3A8FC7" onclick="jumpPhase('p3')">Phase 3<br><small>Cluster B</small></div>
-    <div class="phase-item" style="background:#27AE60" onclick="jumpPhase('p4')">Phase 4<br><small>C + D</small></div>
-    <div class="phase-item" style="background:#D4A017" onclick="jumpPhase('p5')">Phase 5<br><small>E + G</small></div>
-    <div class="phase-item" style="background:#C0392B" onclick="jumpPhase('p6')">Phase 6<br><small>Reports</small></div>
-  </div>
-
-  <div id="p1">
-  <h2 class="section-h">Phase 1 — Mandatory Base (Weeks 1–6)</h2>
-  <div class="callout success"><div class="callout-label">Deliverable</div><p>A working case management system with tamper-evident audit logging and human approval gates. Defensible output, even with no AI reasoning yet.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Case creation and management (PostgreSQL + simple API)</li>
-    <li>Case-scoped namespaces in Qdrant (B1)</li>
-    <li>Audit event logger writing to PostgreSQL (B5)</li>
-    <li>Hash-chain implementation — SHA-256 chaining on every log entry (B6)</li>
-    <li>Human review gate — approval UI that writes to audit chain (B4)</li>
-    <li>Model version pinning — store model_id + model_version with every AI call (B7)</li>
-    <li>Bias monitoring dashboard — basic demographic flag rate tracker (B8)</li>
-  </ol>
-  <h3 class="sub-h">Exit Criteria</h3>
-  <ul>
-    <li>10 synthetic cases run end-to-end with complete audit chains</li>
-    <li>Hash chain verification script confirms no tampering detectable</li>
-    <li>Human review gate blocks record creation without approval event</li>
-    <li>Zero cross-case data leakage confirmed by namespace isolation test</li>
-  </ul>
-  <h3 class="sub-h">AI Tools to Use for This Phase</h3>
-  <ul>
-    <li><strong>Claude Code / Cursor:</strong> Write the PostgreSQL schema, hash-chain implementation, and basic API. Prompt: "Build a PostgreSQL-backed audit logger with SHA-256 hash chaining where each entry links to the previous one. Each entry has: event_id, timestamp, event_type, payload, payload_hash, chain_hash."</li>
-    <li><strong>Claude (this interface):</strong> Review architecture decisions, write test cases, design the UI wireframes for the human review gate.</li>
-  </ul>
-  </div>
-
-  <div id="p2">
-  <h2 class="section-h">Phase 2 — Cluster A: Document Ingestion (Weeks 7–14)</h2>
-  <div class="callout success"><div class="callout-label">Deliverable</div><p>Investigators can upload any document type and query it by meaning. Evidence retrieval in under 1 second. Every claim cites its source document and page.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Document parser — PyMuPDF for PDFs, openpyxl for Excel, python-docx for Word</li>
-    <li>Document-type-aware chunker — different strategies per file type</li>
-    <li>Local embedding model — BGE-M3 via Ollama</li>
-    <li>Qdrant indexer — writes to case-scoped namespace</li>
-    <li>Retrieval API — semantic search with namespace filter</li>
-    <li>Retrieval Verifier — checks claims against namespace (B2)</li>
-    <li>Evidence Grounder — attaches chunk_id + source + page (B3)</li>
-  </ol>
-  <h3 class="sub-h">Exit Criteria</h3>
-  <ul>
-    <li>50 real documents ingested across 5 different file types</li>
-    <li>Retrieval latency under 1 second post-index</li>
-    <li>Retrieval Verifier correctly strips 100% of injected false claims in test</li>
-    <li>Evidence Grounder attaches correct citations to all verified claims</li>
-  </ul>
-  </div>
-
-  <div id="p3">
-  <h2 class="section-h">Phase 3 — Cluster B: Behavioural & Parallel Run (Months 4–9)</h2>
-  <div class="callout success"><div class="callout-label">Deliverable</div><p>Interview transcripts ingested and searchable. Contradiction detection live. Parallel run: new system runs alongside old process — outputs reviewed but not primary record.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Whisper STT integration — local transcription with speaker diarisation</li>
-    <li>Transcript chunker — speaker-turn level, with timestamp + speaker metadata</li>
-    <li>Extended PII recognisers for Presidio — spoken-form names, informal references</li>
-    <li>Contradiction Detector — cross-references transcript claims vs document corpus and graph</li>
-    <li>Transcript Approval Gate — separate HITL approval flag for statement-derived findings</li>
-  </ol>
-  </div>
-
-  <div id="p4">
-  <h2 class="section-h">Phase 4 — Clusters C + D: Graph + Reasoning (Month 4–6)</h2>
-  <div class="callout success"><div class="callout-label">Deliverable</div><p>Entity network mapping live. Recursive reasoning loop operational. Evidence scoring running. Profile 4 capability achieved.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Entity extractor — NER pipeline feeding into resolution queue</li>
-    <li>Three-tier entity resolution — Tier 1 auto, Tier 2/3 blocking HITL screens</li>
-    <li>Neo4j graph builder — entities as nodes, transactions as weighted edges</li>
-    <li>Graph query layer — circular flow, community detection, path analysis</li>
-    <li>LangGraph reasoning loop — Planner → Analyzer → Verifier → Grounder → Critic → Score</li>
-    <li>Hypothesis Tracker — maintains working theory across iterations</li>
-    <li>Calibrated evidence scorer — 4-component deterministic score</li>
-  </ol>
-  </div>
-
-  <div id="p5">
-  <h2 class="section-h">Phase 5 — Clusters E + G: Privacy + Integrity (Month 6–10)</h2>
-  <div class="callout warn"><div class="callout-label">Legal Sign-Off Required Before This Phase</div><p>Cluster E activates external AI APIs. Get legal review of your pseudonymisation approach and data processing agreements before enabling.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Presidio pseudonymisation pipeline with custom recognisers</li>
-    <li>Token map store — in-memory, encrypted at rest, session-scoped</li>
-    <li>De-tokenisation gate — restores identifiers only post-approval, on-premise</li>
-    <li>External SOTA API integration (Claude or GPT-4) — receives pseudonymised payload only</li>
-    <li>G1 — AWS QLDB / Azure Confidential Ledger integration for daily audit chain anchoring</li>
-    <li>G2 — Recording file hash → transcript linkage in audit chain</li>
-  </ol>
-  </div>
-
-  <div id="p6">
-  <h2 class="section-h">Phase 6 — Report Generation + Primary System (Month 10+)</h2>
-  <div class="callout success"><div class="callout-label">Deliverable</div><p>Full draft report generation in 60–90 seconds. Every claim cited. Human review protocol live. New system becomes primary investigation record.</p></div>
-  <h3 class="sub-h">What to Build</h3>
-  <ol>
-    <li>Query template library — one RAG + graph query pair per report section</li>
-    <li>Parallel section generator — all 8 sections generated simultaneously</li>
-    <li>Section review UI — finding + citation map side by side, edit + approve interface</li>
-    <li>Citation Map appendix — auto-generated index of all findings to sources</li>
-    <li>Final report lock — approved sections assembled, report hash stored in audit chain</li>
-  </ol>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- FLOW: CASE -->
-<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section" id="s-flow-case">
   <h1 class="page-title">Workflow: <span>End-to-End Case Flow</span></h1>
   <p class="page-subtitle">How a case moves through the full IRE system — from opening to locked report.</p>
 
   <div class="diagram-wrap">
     <div class="diagram-title">Full Case Lifecycle</div>
-    <img class="diagram-static" src="./diagrams/diagram-2.svg" alt="IRE Mermaid diagram 2" loading="lazy" />
+    <div class="mermaid">
+flowchart TD
+  A([Investigator Opens Case]) --> B["Case-Scoped Namespace Created<br/>Audit Chain Initialised"]
+  B --> C["Evidence Upload<br/>Documents + Transcripts"]
+  C --> D{Evidence Type?}
+  D -->|Documents| E["Cluster A:<br/>Ingest → Chunk → Embed → Index"]
+  D -->|Transcripts| F["Cluster B:<br/>Transcribe → Chunk → PII Scrub → Index"]
+  D -->|Both| G[Both Pipelines Run in Parallel]
+  E --> H[Entity Extraction]
+  F --> H
+  G --> H
+  H --> I["Cluster C:<br/>Entity Resolution HITL"]
+  I --> J["Graph Build:<br/>Nodes + Edges + Relationships"]
+  J --> K["Cluster D:<br/>Recursive Reasoning Loop"]
+  K --> L{Evidence Score ≥ 0.80?}
+  L -->|No| M["Iterate:<br/>New Queries + Evidence"]
+  M --> K
+  L -->|Yes| N["Draft Report Generated<br/>60-90 seconds"]
+  N --> O["Human Review Gate:<br/>Section-by-Section Approval"]
+  O --> P{All Sections Approved?}
+  P -->|No| Q[Investigator Edits + Re-approves]
+  Q --> P
+  P -->|Yes| R["Final Report Locked<br/>Citation Map Appended"]
+  R --> S["Audit Chain Complete:<br/>Report Hash Stored"]
+  S --> T([Case Closed])
+
+  style A fill:#1B3A5C,color:#fff
+  style T fill:#27AE60,color:#fff
+  style O fill:#D4A017,color:#fff
+  style I fill:#2E6DA4,color:#fff
+    </div>
   </div>
 
   <h2 class="section-h">What Happens at Each Stage</h2>
@@ -693,7 +368,29 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster A — Document Ingestion Pipeline</div>
-    <img class="diagram-static" src="./diagrams/diagram-3.svg" alt="IRE Mermaid diagram 3" loading="lazy" />
+    <div class="mermaid">
+flowchart LR
+  A([File Upload]) --> B{File Type?}
+  B -->|PDF text-based| C["PyMuPDF<br/>extract text"]
+  B -->|PDF scanned| D["Tesseract OCR<br/>extract text"]
+  B -->|Excel / CSV| E["pandas<br/>parse rows"]
+  B -->|Email .msg| F["extract-msg<br/>parse headers + body"]
+  B -->|Word .docx| G["python-docx<br/>extract paragraphs"]
+  C --> H[Chunker]
+  D --> H
+  E --> H
+  F --> H
+  G --> H
+  H --> I["Document-Type Strategy<br/>Clause / Row-Window / Per-Email"]
+  I --> J["Metadata Tagging<br/>chunk_id · source_doc · page_ref<br/>entity_tags · date_range"]
+  J --> K["Embedding Model<br/>BGE-M3 via Ollama"]
+  K --> L["Qdrant Indexer<br/>Case-Scoped Namespace"]
+  L --> M["Entity Extract<br/>Feed to Resolution Queue"]
+  L --> N([Queryable Evidence])
+
+  style A fill:#1B3A5C,color:#fff
+  style N fill:#27AE60,color:#fff
+    </div>
   </div>
 
   <div class="callout warn">
@@ -711,7 +408,34 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Three-Tier Entity Resolution</div>
-    <img class="diagram-static" src="./diagrams/diagram-4.svg" alt="IRE Mermaid diagram 4" loading="lazy" />
+    <div class="mermaid">
+flowchart TD
+  A([Raw Entities from Parser]) --> B["Tier 1: Exact Match<br/>National ID · Account No · Tax ID"]
+  B --> C{Exact match found?}
+  C -->|Yes| D["Auto-Resolve: Merge Nodes<br/>Log to Audit Chain"]
+  D --> E["Notification to Investigator<br/>24hr Override Window"]
+  C -->|No| F["Tier 2: Fuzzy Match<br/>Name variants · Address overlap<br/>Phonetic similarity"]
+  F --> G{Confidence Score?}
+  G -->|60–94%| H["BLOCKING: Show HITL Screen<br/>Evidence For + Against + Score"]
+  H --> I{Investigator Decision}
+  I -->|Approve Merge| J["Merge Nodes<br/>Log Decision + Evidence"]
+  I -->|Reject| K["Keep Separate<br/>Log Decision"]
+  I -->|Defer| L[Add to Review Queue]
+  G -->|Below 60%| M["Tier 3: Contextual Match<br/>Shared director · address · agent<br/>Transcript evidence"]
+  M --> N["BLOCKING: Show HITL Screen<br/>Three Options"]
+  N --> O{Investigator Decision}
+  O -->|Merge| J
+  O -->|Separate Node| K
+  O -->|Alias Edge| P["Link as Related Party<br/>Not Merged<br/>Log Relationship"]
+  J --> Q([Graph Build Can Proceed])
+  K --> Q
+  P --> Q
+
+  style A fill:#1B3A5C,color:#fff
+  style Q fill:#27AE60,color:#fff
+  style H fill:#D4A017,color:#fff
+  style N fill:#D4A017,color:#fff
+    </div>
   </div>
 
   <div class="callout danger">
@@ -729,7 +453,30 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster D — Recursive Reasoning Loop</div>
-    <img class="diagram-static" src="./diagrams/diagram-5.svg" alt="IRE Mermaid diagram 5" loading="lazy" />
+    <div class="mermaid">
+flowchart TD
+  A(["Initialise: Case State + Goal + Model Version"]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
+  B --> C["RETRIEVE<br/>RAG Query + Graph Query"]
+  C --> D["ANALYZE<br/>70B Agent temp=0<br/>Retrieval-only mode"]
+  D --> E["VERIFY<br/>Retrieval Verifier DETERMINISTIC<br/>Does chunk exist? Is claim recoverable?"]
+  E --> F{Claim passes?}
+  F -->|Yes| G["GROUND<br/>Attach chunk_id + source + page_ref"]
+  F -->|No| H["Strip Claim<br/>Log to Unverified Register"]
+  G --> I["CRITIQUE<br/>Logical consistency?<br/>Gaps identified?"]
+  H --> I
+  I --> J["SCORE<br/>Update 4-component Evidence Score"]
+  J --> K{"Score ≥ threshold<br/>AND ≥3 citations?"}
+  K -->|No — continue| L{Iteration ceiling reached?}
+  L -->|No| B
+  L -->|Yes| M["Flag: Corpus Exhausted<br/>Send to Human Review"]
+  K -->|Yes| N["Draft Finding Generated<br/>With Citation Map"]
+  N --> O([Human Review Gate])
+
+  style A fill:#1B3A5C,color:#fff
+  style O fill:#D4A017,color:#fff
+  style M fill:#C0392B,color:#fff
+  style E fill:#2E6DA4,color:#fff
+    </div>
   </div>
 
   <h2 class="section-h">Evidence Score Thresholds</h2>
@@ -759,7 +506,26 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Cluster E — Pseudonymisation Pipeline</div>
-    <img class="diagram-static" src="./diagrams/diagram-6.svg" alt="IRE Mermaid diagram 6" loading="lazy" />
+    <div class="mermaid">
+flowchart TD
+  A([Raw Case Data with PII]) --> B["Presidio NER + Custom Recognisers<br/>Detect: names · IDs · accounts · spoken-form refs"]
+  B --> C["Token Map Store<br/>In-memory · Encrypted at rest<br/>NEVER leaves environment"]
+  C --> D["Pseudonymised Payload<br/>Names → IND_T001 · Accounts → ACCT_T089<br/>Amounts/dates/types RETAINED"]
+  D --> E["External SOTA API<br/>Claude / GPT-4<br/>Reasons on tokens only"]
+  E --> F["Tokenised Reasoning Output<br/>No real identifiers"]
+  F --> G["Human Checkpoint<br/>Investigator reviews tokenised output<br/>Checks for re-identification risk"]
+  G --> H{Investigator Approves?}
+  H -->|No| I["Edit or Reject<br/>Log Decision"]
+  H -->|Yes| J["De-tokeniser<br/>Restores real identifiers<br/>ON-PREMISE ONLY"]
+  J --> K[Final Report with Real Names]
+  K --> L["Audit Log:<br/>pseudonymisation event + approval + de-tokenisation timestamp"]
+  L --> M([Case Record Complete])
+
+  style A fill:#1B3A5C,color:#fff
+  style M fill:#27AE60,color:#fff
+  style G fill:#D4A017,color:#fff
+  style E fill:#2E6DA4,color:#fff
+    </div>
   </div>
 
   <div class="callout warn">
@@ -777,7 +543,21 @@
 
   <div class="diagram-wrap">
     <div class="diagram-title">Hash-Chain Immutability Design</div>
-    <img class="diagram-static" src="./diagrams/diagram-7.svg" alt="IRE Mermaid diagram 7" loading="lazy" />
+    <div class="mermaid">
+flowchart LR
+  A["Event 1<br/>Case Open<br/>payload_hash: a1b2<br/>chain_hash: SHA256 a1b2+genesis"] --> B["Event 2<br/>File Ingestion<br/>payload_hash: c3d4<br/>chain_hash: SHA256 c3d4+prev"]
+  B --> C["Event 3<br/>Entity Resolution<br/>payload_hash: e5f6<br/>chain_hash: SHA256 e5f6+prev"]
+  C --> D["Event N<br/>Human Approval<br/>payload_hash: g7h8<br/>chain_hash: SHA256 g7h8+prev"]
+  D --> E{"Daily Anchor<br/>Cluster G active?"}
+  E -->|Yes| F["AWS QLDB / Azure Ledger<br/>External Timestamp of chain_hash"]
+  E -->|No| G["Institutional-grade integrity<br/>chain intact internally"]
+  F --> H(["Court-Grade Integrity<br/>Independently Verifiable"])
+  G --> I(["Institutional-Grade Integrity<br/>Tamper detectable internally"])
+
+  style A fill:#1B3A5C,color:#fff
+  style H fill:#27AE60,color:#fff
+  style I fill:#2E6DA4,color:#fff
+    </div>
   </div>
 
   <h2 class="section-h">What Gets Logged</h2>
@@ -797,194 +577,19 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- CLUSTER PAGES (A-G) -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-cluster-a">
-  <h1 class="page-title">Cluster A — <span>Documentary Evidence</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>Turns any document pile into queryable evidence. Upload a contract, spreadsheet, email chain, or scanned report — every sentence becomes retrievable by meaning, not keyword. An investigator asking "what did the subject know and when?" gets an answer in seconds, with source and page number attached.</p></div>
-  <div class="cards">
-    <div class="card"><h4>A1 — Ingestion</h4><p>Parses all file types into clean text. PDF, Excel, CSV, email, Word, audio transcripts.</p></div>
-    <div class="card"><h4>A2 — Chunking</h4><p>Splits documents into retrievable units using document-type-aware strategies.</p></div>
-    <div class="card"><h4>A3 — Embedding</h4><p>Converts text chunks to vectors using a local model (BGE-M3). No data leaves your environment.</p></div>
-    <div class="card"><h4>A4 — Extraction</h4><p>Pulls entities, dates, amounts, and relationships from each chunk.</p></div>
-    <div class="card"><h4>A5 — Templates</h4><p>Query templates for each report section — pre-built RAG queries optimised per evidence type.</p></div>
-    <div class="card"><h4>A6 — Parallel Generation</h4><p>All report sections generated simultaneously after corpus is indexed. 60–90 seconds total.</p></div>
-    <div class="card navy"><h4>A7 — Citation Map</h4><p>Auto-generated index mapping every report claim to its source document, chunk, and page.</p></div>
-  </div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>PDF parsing</td><td>PyMuPDF (fitz)</td><td>Free</td></tr>
-    <tr><td>OCR for scanned PDFs</td><td>Tesseract</td><td>Free</td></tr>
-    <tr><td>Excel/CSV parsing</td><td>pandas + openpyxl</td><td>Free</td></tr>
-    <tr><td>Email parsing</td><td>extract-msg + mailparser</td><td>Free</td></tr>
-    <tr><td>Embedding model</td><td>BGE-M3 via Ollama</td><td>Free</td></tr>
-    <tr><td>Vector store</td><td>Qdrant (self-hosted)</td><td>Free</td></tr>
-    <tr><td>Semantic search</td><td>Qdrant Python SDK</td><td>Free</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-b">
-  <h1 class="page-title">Cluster B — <span>Behavioural & Interview</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>Detects when someone says something in an interview that contradicts the evidence. The system checks every document and transaction record in the case and flags contradictions automatically — citing both the statement and the contradicting evidence. The investigator decides what it means.</p></div>
-  <div class="cards">
-    <div class="card"><h4>B1 — Transcript Chunking</h4><p>Splits recordings by speaker turn (not paragraph). Each chunk tagged with speaker ID, timestamp, session ID.</p></div>
-    <div class="card"><h4>B2 — Contradiction Detector</h4><p>Cross-references every factual claim in transcripts against the document corpus and graph. Flags discrepancies with citations on both sides.</p></div>
-    <div class="card navy"><h4>B3 — Transcript Approval Gate</h4><p>Separate approval flag for findings derived from interview statements. Additional gate beyond standard section approval.</p></div>
-  </div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>Speech-to-text (local)</td><td>Whisper via Faster-Whisper</td><td>Free</td></tr>
-    <tr><td>Speaker diarisation</td><td>pyannote-audio</td><td>Free (HuggingFace token required)</td></tr>
-    <tr><td>PII scrubbing in transcripts</td><td>Presidio with custom recognisers</td><td>Free</td></tr>
-    <tr><td>Contradiction detection logic</td><td>LangChain + Qdrant retrieval</td><td>Free</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-c">
-  <h1 class="page-title">Cluster C — <span>Entity & Network Intelligence</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>Answers the question no document search can: who is connected to whom, and does that network reveal something the individual documents do not? Six independently filed insurance claims look unrelated until a graph shows four share two witnesses.</p></div>
-  <div class="cards">
-    <div class="card"><h4>C1 — Entity Extract</h4><p>NER pipeline pulls all entities from ingested documents: people, companies, accounts, addresses.</p></div>
-    <div class="card"><h4>C2 — Entity Resolution (HITL)</h4><p>Three-tier pipeline determines which entities are the same. Blocking HITL for ambiguous matches.</p></div>
-    <div class="card"><h4>C3 — Graph Build</h4><p>Resolved entities become nodes. Transactions and relationships become weighted edges.</p></div>
-    <div class="card"><h4>C4 — Graph Query</h4><p>Cypher queries detect: circular flows, counterparty clusters, layering chains, mule networks.</p></div>
-    <div class="card navy"><h4>C5 — Cross-Case Index</h4><p>De-identified token index surfaces when entities appear across independently opened cases. Generates leads, not findings.</p></div>
-  </div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>Graph database</td><td>Neo4j Community (self-hosted)</td><td>Free</td></tr>
-    <tr><td>Graph queries</td><td>Neo4j Python driver + Cypher</td><td>Free</td></tr>
-    <tr><td>NER for entity extraction</td><td>spaCy + custom models</td><td>Free</td></tr>
-    <tr><td>Fuzzy matching (Tier 2)</td><td>rapidfuzz (Jaro-Winkler)</td><td>Free</td></tr>
-    <tr><td>Graph algorithms</td><td>Neo4j Graph Data Science plugin</td><td>Free (community)</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-d">
-  <h1 class="page-title">Cluster D — <span>Advanced Reasoning</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>The reasoning engine. It forms a hypothesis, searches for evidence that tests it, challenges its own reasoning, revises the hypothesis, and repeats until it has earned a confident finding or flagged a gap. A 340-page document set that takes 3 days to synthesise manually produces a draft finding in 90 seconds.</p></div>
-  <div class="cards">
-    <div class="card"><h4>D1 — Tiered LLM</h4><p>8B model for orchestration, 70B for analysis, SOTA API for final narrative. Right model for right task.</p></div>
-    <div class="card"><h4>D2 — Recursive Loop</h4><p>Plan → Retrieve → Analyze → Verify → Ground → Critique → Score. Repeats until threshold met.</p></div>
-    <div class="card"><h4>D3 — Hypothesis Tracker</h4><p>Maintains and sharpens working theory across iterations. Rejects updates not backed by evidence.</p></div>
-    <div class="card"><h4>D4 — Evidence Scorer</h4><p>4-component deterministic score: Citation Density (30%) + Retrieval Rate (30%) + Framework Coverage (25%) + Consistency (15%).</p></div>
-    <div class="card navy"><h4>D5 — Sufficiency Check</h4><p>High score + thin evidence = red flag. Minimum 3 citations per material finding, regardless of score.</p></div>
-  </div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>Reasoning loop orchestration</td><td>LangGraph</td><td>Free</td></tr>
-    <tr><td>Local 8B model (orchestration)</td><td>Llama 3.1 8B via Ollama</td><td>Free</td></tr>
-    <tr><td>Local 70B model (analysis)</td><td>Llama 3.1 70B via Ollama</td><td>Free + GPU compute</td></tr>
-    <tr><td>Schema validation</td><td>Pydantic</td><td>Free</td></tr>
-    <tr><td>Hypothesis state persistence</td><td>Redis or PostgreSQL</td><td>Free</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-e">
-  <h1 class="page-title">Cluster E — <span>Privacy Gateway</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>Replaces every personal identifier with an anonymous token before anything leaves your systems. The AI reasons about tokens, not people. Real identifiers are restored only after investigator approval, only inside your environment.</p></div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>PII detection</td><td>Microsoft Presidio + custom recognisers</td><td>Free</td></tr>
-    <tr><td>Token map store</td><td>Redis (in-memory, encrypted)</td><td>Free</td></tr>
-    <tr><td>External AI API (SOTA)</td><td>Anthropic Claude / OpenAI GPT-4</td><td>$3–15 per M tokens</td></tr>
-    <tr><td>Data processing agreement</td><td>Legal — with your AI provider</td><td>Free (standard terms) or negotiated</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-f">
-  <h1 class="page-title">Cluster F — <span>Institutional Memory</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>After 200+ cases, train the AI on your own investigation history. It learns your fraud typologies, your reporting standards, what you flag and what you clear. The system gets smarter with every case you close.</p></div>
-  <div class="callout warn"><div class="callout-label">Minimum Threshold</div><p>Do not fine-tune before 200 completed cases. A model trained on 80 cases overfits — it learns the quirks of 80 cases, not your actual patterns. The general model outperforms an under-trained specific one.</p></div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>Fine-tuning compute</td><td>AWS/GCP GPU instances (A100 recommended)</td><td>$3–8/hr / ₹252–672/hr</td></tr>
-    <tr><td>Training framework</td><td>Axolotl or LLaMA-Factory</td><td>Free</td></tr>
-    <tr><td>Holdout evaluation</td><td>Custom evaluation harness (build in Phase 4)</td><td>Free</td></tr>
-    <tr><td>Bias monitoring (B8)</td><td>Built in Phase 1 — already active</td><td>Free</td></tr>
-  </table></div>
-</div>
-
-<div class="section" id="s-cluster-g">
-  <h1 class="page-title">Cluster G — <span>Integrity Elevation</span></h1>
-  <div class="callout"><div class="callout-label">In Plain English</div><p>Daily external anchoring of your audit chain. A third party can mathematically verify every entry was exactly as created — without trusting your systems. The difference between "we say it wasn't altered" and "it's mathematically provable."</p></div>
-  <h2 class="section-h">Tools Required</h2>
-  <div class="tbl-wrap"><table>
-    <tr><th>Component</th><th>Tool</th><th>Cost</th></tr>
-    <tr><td>External ledger anchor (G1)</td><td>AWS QLDB or Azure Confidential Ledger</td><td>~$5–20/month</td></tr>
-    <tr><td>Recording hash → transcript link (G2)</td><td>Custom Python — SHA-256 + PostgreSQL</td><td>Free</td></tr>
-    <tr><td>Chain verification tool</td><td>Custom Python verification script</td><td>Free</td></tr>
-  </table></div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- AI TOOLS GUIDE -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-ai-guide">
-  <h1 class="page-title">Building With <span>AI Tools</span></h1>
-  <p class="page-subtitle">You don't need to write every line of code yourself. Here is exactly which AI tools to use for which parts of the build — and how to prompt them effectively.</p>
-
-  <div class="callout success">
-    <div class="callout-label">The Core Principle</div>
-    <p>You provide the architecture and domain expertise (what it needs to do). AI tools write the code (how to do it). The split that works: you design each component's inputs, outputs, and constraints in plain English — then use AI coding tools to implement it. Never ask AI to design the architecture from scratch.</p>
-  </div>
-
-  <h2 class="section-h">Which AI Tool for Which Task</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Task</th><th>Best Tool</th><th>Why</th><th>Sample Prompt Approach</th></tr>
-      <tr><td>Write pipeline code (ingestion, chunking, embedding)</td><td><strong>Claude Code</strong> or Cursor</td><td>Agentic coding — reads your existing files, writes and runs code, fixes its own errors</td><td>"Build a document ingestion pipeline that: takes a PDF, extracts text with PyMuPDF, chunks by paragraph with overlap 100 chars, stores in Qdrant namespace {case_id} with metadata {source, page_ref, chunk_id}"</td></tr>
-      <tr><td>Design database schemas</td><td><strong>Claude (this interface)</strong></td><td>Better at architecture reasoning and explaining tradeoffs</td><td>"Design a PostgreSQL schema for an append-only audit log with SHA-256 hash chaining. Each row must link to the previous row's hash."</td></tr>
-      <tr><td>Write Cypher queries for Neo4j</td><td><strong>Claude or ChatGPT</strong></td><td>Both are good at Cypher. Describe the pattern you want to detect.</td><td>"Write a Cypher query that detects circular fund flows where the same amount passes through 3+ entities and returns to the origin within 30 days."</td></tr>
-      <tr><td>Build the HITL review UI</td><td><strong>Claude Code</strong> or v0.dev</td><td>Generates full React/HTML components from description</td><td>"Build a section review interface: shows finding text on left, citation map on right, edit button, approve button. Approve writes to audit log."</td></tr>
-      <tr><td>Write investigation query templates</td><td><strong>Claude (this interface)</strong></td><td>Domain reasoning — write good RAG queries for each report section</td><td>"Write a RAG query for the 'Red Flags' section of a financial crime investigation report. The query should surface: structuring, layering, velocity spikes, and round-tripping."</td></tr>
-      <tr><td>Debug errors and failures</td><td><strong>Claude Code</strong> or Cursor</td><td>Can read your codebase and error logs, not just the code snippet</td><td>Paste the full error + relevant code. "This is failing at the Qdrant write step. Here is the error and the ingestion code."</td></tr>
-      <tr><td>Write test cases</td><td><strong>Claude (this interface)</strong></td><td>Good at generating edge cases for investigation scenarios</td><td>"Write test cases for the retrieval verifier component. Include: valid claim, hallucinated claim, claim with wrong chunk_id, and claim from wrong namespace."</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">AI Tool Subscriptions You Need</h2>
-  <div class="tbl-wrap">
-    <table>
-      <tr><th>Tool</th><th>What It Is</th><th>Cost</th><th>INR</th><th>Priority</th></tr>
-      <tr><td><strong>Claude Pro</strong> (claude.ai)</td><td>Claude for architecture design, query templates, documentation, review. This interface.</td><td>$20/month</td><td>₹1,680/month</td><td>Essential</td></tr>
-      <tr><td><strong>Claude Code</strong></td><td>Terminal-based agentic coding. Reads your repo, writes and runs code, fixes errors autonomously.</td><td>Usage-based ~$30–100/month for active build</td><td>₹2,520–₹8,400/month</td><td>Essential for build phase</td></tr>
-      <tr><td><strong>Cursor</strong></td><td>IDE with AI coding built in. Good alternative to Claude Code for developers who prefer an IDE.</td><td>$20/month</td><td>₹1,680/month</td><td>Choose one: Cursor OR Claude Code</td></tr>
-      <tr><td><strong>GitHub Copilot</strong></td><td>AI autocomplete in your editor. Lower-level than Cursor but cheaper.</td><td>$10/month</td><td>₹840/month</td><td>Nice to have</td></tr>
-      <tr><td><strong>LangSmith</strong></td><td>Traces every LLM call — essential for debugging the reasoning loop.</td><td>Free tier / $39/month</td><td>₹3,276/month</td><td>Add in Phase 4</td></tr>
-    </table>
-  </div>
-
-  <h2 class="section-h">Prompting Principles for IRE Build</h2>
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Specify Inputs and Outputs Exactly</h4><p>Don't say "build a chunker." Say "Build a chunker that takes a string of PDF text and returns a list of dicts with keys: chunk_id (UUID), text (string), page_ref (int), source_doc (string), char_count (int). Use 500-char chunks with 100-char overlap."</p></div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Include the Constraint</h4><p>Always add the non-negotiable architectural constraint: "The namespace_id must match the case_id — never query across namespaces" or "Temperature must be 0 — no randomness in extraction tasks."</p></div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Ask for Tests Alongside Code</h4><p>Add "also write 3 pytest test cases" to every code request. Test cases clarify what the code should do and catch errors before they reach production.</p></div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Review Before Running</h4><p>Read the generated code before running it in production. You don't need to understand every line — but you should understand what it does. Ask Claude to explain any section you don't follow.</p></div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Keep a Decision Log</h4><p>Every architectural decision you make — "we chose Qdrant over Pinecone because of data residency" — write it down. This becomes your institutional knowledge and makes onboarding new developers faster.</p></div></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- DEPLOYMENT PROFILES -->
-<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section" id="s-profiles">
   <h1 class="page-title">Deployment <span>Profiles</span></h1>
   <p class="page-subtitle">Six reference configurations — from a minimal compliant system to a full enterprise forensic platform. Start where your needs are, grow from there.</p>
 
   <div class="tbl-wrap">
     <table>
-      <tr><th>Profile</th><th>Components</th><th>Use When</th><th>Monthly Cost</th><th>Build Time</th></tr>
-      <tr><td><strong>1 — Minimal Compliant</strong></td><td>8 (Base only)</td><td>Simple HR matters, low-volume internal investigations</td><td>$20–50 / ₹1,680–4,200</td><td>4–6 weeks</td></tr>
-      <tr><td><strong>2 — Interview-Led</strong></td><td>11 (Base + B)</td><td>HR investigations, whistleblower programmes, testimony-primary cases</td><td>$30–80 / ₹2,520–6,720</td><td>6–8 weeks</td></tr>
-      <tr><td><strong>3 — Document Investigation</strong></td><td>20 (Base + A + D)</td><td>Legal due diligence, procurement review, regulatory exam prep</td><td>$80–200 / ₹6,720–16,800</td><td>10–14 weeks</td></tr>
-      <tr><td><strong>4 — Corporate Fraud</strong></td><td>28 (Base + A+B+C+D)</td><td>FCPA/ABAC, bribery, beneficial ownership, multi-party fraud</td><td>$200–500 / ₹16,800–42,000</td><td>16–24 weeks</td></tr>
-      <tr><td><strong>5 — Financial Crime Full</strong></td><td>31 (Base + A+B+C+D+E)</td><td>AML, STR generation, transaction monitoring follow-up</td><td>$600–2,000 / ₹50,400–1,68,000</td><td>24–32 weeks</td></tr>
-      <tr><td><strong>6 — Enterprise Forensic</strong></td><td>35 (All clusters)</td><td>Enforcement agency, Big 4 forensic, court-bound outputs</td><td>$2,000–6,000 / ₹1,68,000–5,04,000</td><td>32–40 weeks</td></tr>
+      <tr><th>Profile</th><th>Components</th><th>Use When</th><th>Build Time</th></tr>
+      <tr><td><strong>1 — Minimal Compliant</strong></td><td>8 (Base only)</td><td>Simple HR matters, low-volume internal investigations</td><td>4–6 weeks</td></tr>
+      <tr><td><strong>2 — Interview-Led</strong></td><td>11 (Base + B)</td><td>HR investigations, whistleblower programmes, testimony-primary cases</td><td>6–8 weeks</td></tr>
+      <tr><td><strong>3 — Document Investigation</strong></td><td>20 (Base + A + D)</td><td>Legal due diligence, procurement review, regulatory exam prep</td><td>10–14 weeks</td></tr>
+      <tr><td><strong>4 — Corporate Fraud</strong></td><td>28 (Base + A+B+C+D)</td><td>FCPA/ABAC, bribery, beneficial ownership, multi-party fraud</td><td>16–24 weeks</td></tr>
+      <tr><td><strong>5 — Financial Crime Full</strong></td><td>31 (Base + A+B+C+D+E)</td><td>AML, STR generation, transaction monitoring follow-up</td><td>24–32 weeks</td></tr>
+      <tr><td><strong>6 — Enterprise Forensic</strong></td><td>35 (All clusters)</td><td>Enforcement agency, Big 4 forensic, court-bound outputs</td><td>32–40 weeks</td></tr>
     </table>
   </div>
 
@@ -997,96 +602,4 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- FAQ -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="section" id="s-faq">
-  <h1 class="page-title">Frequently Asked <span>Questions</span></h1>
 
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>Do I need to know how to code to build this?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>You need at least one person who can write Python and work with APIs. With Claude Code or Cursor, a single developer can build Profile 3 in 8–12 weeks. You as the founder provide the domain knowledge — what the system needs to do, what constitutes a finding, what the output should look like. AI tools handle most of the actual code writing.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>Can I use cloud services instead of self-hosting everything?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>Yes, but with a critical caveat: investigation data is sensitive. The vector database (Qdrant), graph database (Neo4j), audit log (PostgreSQL), and PII token map must stay on-premise or in a jurisdiction-compliant private cloud. Only pseudonymised data may reach external AI APIs (Cluster E). For Profiles 1–4, everything can run on a private cloud VM without any external AI.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>How long before the system delivers value?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>Phase 1 (Mandatory Base) delivers defensible audit-logged case management in 4–6 weeks — before any AI reasoning is active. Phase 2 (document retrieval) delivers evidence search in under 1 second by week 14. Phase 4 (recursive reasoning) delivers draft findings in 60–90 seconds. You don't need the full platform to start getting value.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>What is the minimum hardware I need?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>For Profiles 1–3 (no 70B model): a cloud VM with 8GB RAM and 4 vCPUs is sufficient (~$30–50/month on AWS/GCP). For Profile 4+ (70B model): you need a GPU instance with at least 40GB GPU RAM. AWS g5.12xlarge or GCP a2-highgpu-1g. Budget $150–400/month for compute. Alternatively, use Ollama on a powerful workstation (RTX 4090 = 24GB VRAM — run 2 instances for 70B).</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>Is the system admissible in court/regulatory proceedings?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>The architecture is designed for maximum defensibility — tamper-evident audit chain, human approval at every finding, evidence citations on every claim. With Cluster G active (external notarisation), integrity is independently verifiable. However, admissibility is a legal question that depends on jurisdiction, proceeding type, and regulatory requirements. Engage qualified legal counsel in your jurisdiction before relying on IRE outputs in any formal proceeding.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>How do I handle Indian regulatory requirements (RBI, PMLA, SEBI)?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>The architecture is jurisdiction-agnostic — map your specific regulatory framework into the investigation methodology document (Prerequisite 1). For RBI/PMLA: your STR templates, threshold amounts, and filing windows become the query template library (A5) and framework coverage checklist (D4). For data residency: all data stores must be on Indian infrastructure — use AWS Mumbai, Azure India, or domestic providers (Jio Cloud, Tata TCS). Engage a FEMA/PMLA-specialist counsel to sign off on the AI-in-investigation workflow before production.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>When should I NOT build this?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>Don't build this if: (1) you have fewer than 5 investigations per month — the overhead exceeds the value at that scale; (2) you don't have documented investigation methodology — the system has nothing to encode; (3) your investigations are entirely unstructured conversations with no defined output format; (4) you cannot allocate one developer for 3+ months. In these cases, start with a simpler case management system and return to IRE when volume and complexity justify it.</p></div>
-  </div>
-
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)"><span>What is the difference between institutional-grade and court-grade integrity?</span><span class="acc-arrow">▶</span></div>
-    <div class="acc-body"><p>Institutional-grade (Base B5+B6): the audit chain is tamper-evident — any modification breaks the cryptographic links, detectable by anyone with access to your systems. Court-grade (+ Cluster G): the daily chain hash is anchored to an independent external ledger. A third party can verify integrity without accessing your systems at all. "We say it wasn't altered" vs "a third party can prove it wasn't altered." Cluster G is only needed when outputs will face adversarial legal challenge.</p></div>
-  </div>
-</div>
-
-</div><!-- /.content -->
-</div><!-- /.main -->
-
-<script>
-// ── Navigation ────────────────────────────────────────────────
-function show(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('s-' + id);
-  if (el) {
-    el.classList.add('active');
-    window.scrollTo(0, 0);
-  }
-  document.querySelectorAll('.sidebar a').forEach(a => {
-    a.classList.remove('active');
-    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")) {
-      a.classList.add('active');
-    }
-  });
-  return false;
-}
-
-function jumpPhase(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ── Accordion ─────────────────────────────────────────────────
-function toggleAcc(header) {
-  const body = header.nextElementSibling;
-  const arrow = header.querySelector('.acc-arrow');
-  const isOpen = body.classList.contains('open');
-  document.querySelectorAll('.acc-body.open').forEach(b => {
-    b.classList.remove('open');
-    b.previousElementSibling.querySelector('.acc-arrow').classList.remove('open');
-  });
-  if (!isOpen) {
-    body.classList.add('open');
-    arrow.classList.add('open');
-  }
-}
-
-// ── Set initial active nav ────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  const first = document.querySelector('.sidebar a');
-  if (first) first.classList.add('active');
-});
-</script>
-</body>
-</html>
