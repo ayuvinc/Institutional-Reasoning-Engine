@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <defs>
+    <style>
+      .t{font:14px Arial,Helvetica,sans-serif;fill:#102a43}
+      .h{font:20px Arial,Helvetica,sans-serif;font-weight:700;fill:#0b2239}
+      .box{fill:#eaf2fb;stroke:#2e6da4;stroke-width:2}
+      .base{fill:#e8f7ef;stroke:#1f8a4d;stroke-width:2}
+      .cluster{fill:#fff4e8;stroke:#c47a1d;stroke-width:2}
+      .arrow{stroke:#29445f;stroke-width:2;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#29445f"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="40" class="h">Institutional Reasoning Engine — Architecture Overview</text>
+
+  <rect x="40" y="80" width="1120" height="120" class="box" rx="10"/>
+  <text x="60" y="110" class="t">Input Layer: case data, documents, transcripts, entity records, policies</text>
+  <text x="60" y="140" class="t">All inputs are scoped per case and validated before reasoning</text>
+  <text x="60" y="170" class="t">No cross-case contamination</text>
+
+  <rect x="40" y="240" width="540" height="220" class="base" rx="10"/>
+  <text x="60" y="270" class="h">Mandatory Base (B1–B8)</text>
+  <text x="60" y="305" class="t">Isolation • Retrieval Verifier • Evidence Grounder • Human Review Gate</text>
+  <text x="60" y="335" class="t">Audit Logger • Hash-Chain • Model Version Pinning • Bias Monitoring</text>
+  <text x="60" y="375" class="t">Outcome: defensible, auditable, tamper-evident investigation workflow</text>
+
+  <rect x="620" y="240" width="540" height="220" class="cluster" rx="10"/>
+  <text x="640" y="270" class="h">Modular Clusters (A–G)</text>
+  <text x="640" y="305" class="t">A Documentary • B Behavioural • C Entity/Network • D Reasoning</text>
+  <text x="640" y="335" class="t">E Privacy Gateway • F Institutional Memory • G Integrity Elevation</text>
+  <text x="640" y="375" class="t">Outcome: profile-specific capability expansion without replacing base controls</text>
+
+  <line x1="300" y1="200" x2="300" y2="238" class="arrow"/>
+  <line x1="900" y1="200" x2="900" y2="238" class="arrow"/>
+
+  <rect x="40" y="500" width="1120" height="150" class="box" rx="10"/>
+  <text x="60" y="530" class="h">Outputs</text>
+  <text x="60" y="560" class="t">Human-approved findings • Evidence-linked narrative • Complete audit trail</text>
+  <text x="60" y="590" class="t">Deployment profiles 1–6 selected by complexity, risk, and regulatory requirements</text>
+
+  <line x1="300" y1="460" x2="300" y2="498" class="arrow"/>
+  <line x1="900" y1="460" x2="900" y2="498" class="arrow"/>
+</svg>
