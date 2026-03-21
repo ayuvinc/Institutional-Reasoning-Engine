@@ -1,0 +1,105 @@
+# ── OS files ──────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Editor files ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.history/
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+env/
+.env
+
+# ── Node ──────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
+*.log.*
+
+# ── SENSITIVE — NEVER COMMIT ──────────────────────────────────
+# API keys, tokens, credentials
+*.key
+*.pem
+*.p12
+*.token
+*.secret
+.env.local
+.env.*.local
+secrets.json
+secrets.yaml
+secrets.yml
+config.local.*
+credentials.json
+service_account.json
+
+# Token maps (Cluster E — pseudonymisation)
+token_map*.json
+token_map*.pkl
+*_token_map.*
+
+# Case data — never in version control
+case_data/
+evidence/
+uploads/
+raw_documents/
+transcripts/raw/
+
+# Audit logs — stored in database, not files
+audit_chain*.json
+audit_log*.json
+
+# Model weights — too large, use HuggingFace/Ollama instead
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+models/
+
+# ── Database dumps ────────────────────────────────────────────
+*.sql
+*.dump
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Docker ────────────────────────────────────────────────────
+.docker/
+
+# ── Terraform / Infrastructure ────────────────────────────────
+*.tfstate
+*.tfstate.*
+.terraform/

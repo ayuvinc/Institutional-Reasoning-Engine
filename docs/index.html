@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Institutional Reasoning Engine (IRE) v1.1</title>
+  <style>
+    :root { --bg:#0b1f33; --card:#112a43; --text:#e7eef5; --muted:#a9bfd3; --accent:#2e89ff; --line:#29445f; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; background:linear-gradient(180deg,#081421,#0d2438); color:var(--text); }
+    .wrap { max-width:980px; margin:0 auto; padding:48px 20px 64px; }
+    h1 { margin:0 0 12px; font-size:38px; line-height:1.15; }
+    .sub { color:var(--muted); font-size:17px; line-height:1.6; margin-bottom:28px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; }
+    .card h2 { font-size:18px; margin:0 0 8px; }
+    .card p { margin:0; color:var(--muted); line-height:1.6; }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+    .btn { display:inline-block; text-decoration:none; background:var(--accent); color:#fff; font-weight:700; padding:11px 16px; border-radius:10px; }
+    .btn.alt { background:transparent; border:1px solid var(--line); color:var(--text); }
+    .meta { margin-top:28px; color:var(--muted); font-size:14px; }
+    code { background:#0a1a2a; border:1px solid var(--line); border-radius:6px; padding:2px 6px; color:#d9e8f7; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Institutional Reasoning Engine</h1>
+    <p class="sub">A modular architecture for AI-powered regulated investigation. Version 1.1 by Aditya Kaushal.</p>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Interactive Builder Guide</h2>
+        <p>Read the full browser-based guide with workflows, clusters, deployment profiles, and implementation direction.</p>
+      </article>
+      <article class="card">
+        <h2>Whitepaper (PDF)</h2>
+        <p>Download the full publication for sharing, review, and archival usage.</p>
+      </article>
+      <article class="card">
+        <h2>Whitepaper (DOCX)</h2>
+        <p>Editable source version for internal drafting and controlled updates.</p>
+      </article>
+    </section>
+
+    <div class="actions">
+      <a class="btn" href="./ire-builder-guide.html">Open Builder Guide</a>
+      <a class="btn alt" href="./downloads/IRE_v1.1_Final.pdf">Download PDF</a>
+      <a class="btn alt" href="./downloads/IRE_v1.1_Final.docx">Download DOCX</a>
+      <a class="btn alt" href="../README.md">Read Repository README</a>
+    </div>
+
+    <p class="meta">If hosting on GitHub Pages from <code>/docs</code>, this file is your public homepage.</p>
+  </main>
+</body>
+</html>
