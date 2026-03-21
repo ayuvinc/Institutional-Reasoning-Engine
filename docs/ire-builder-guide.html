@@ -276,13 +276,13 @@ graph TD
     B7 --- B8[B8 Bias Monitor]
   end
   subgraph CLUSTERS["📦 MODULAR CLUSTERS — Activate as needed"]
-    CA[Cluster A\nDocumentary]
-    CB[Cluster B\nBehavioural]
-    CC[Cluster C\nNetwork]
-    CD[Cluster D\nReasoning]
-    CE[Cluster E\nPrivacy]
-    CF[Cluster F\nMemory]
-    CG[Cluster G\nIntegrity]
+    CA["Cluster A<br/>Documentary"]
+    CB["Cluster B<br/>Behavioural"]
+    CC["Cluster C<br/>Network"]
+    CD["Cluster D<br/>Reasoning"]
+    CE["Cluster E<br/>Privacy"]
+    CF["Cluster F<br/>Memory"]
+    CG["Cluster G<br/>Integrity"]
   end
   BASE --> CLUSTERS
   CA --> CC
@@ -697,28 +697,28 @@ graph TD
     <div class="diagram-title">Full Case Lifecycle</div>
     <div class="mermaid">
 flowchart TD
-  A([Investigator Opens Case]) --> B[Case-Scoped Namespace Created\nAudit Chain Initialised]
-  B --> C[Evidence Upload\nDocuments + Transcripts]
+  A([Investigator Opens Case]) --> B["Case-Scoped Namespace Created<br/>Audit Chain Initialised"]
+  B --> C["Evidence Upload<br/>Documents + Transcripts"]
   C --> D{Evidence Type?}
-  D -->|Documents| E[Cluster A:\nIngest → Chunk → Embed → Index]
-  D -->|Transcripts| F[Cluster B:\nTranscribe → Chunk → PII Scrub → Index]
+  D -->|Documents| E["Cluster A:<br/>Ingest → Chunk → Embed → Index"]
+  D -->|Transcripts| F["Cluster B:<br/>Transcribe → Chunk → PII Scrub → Index"]
   D -->|Both| G[Both Pipelines Run in Parallel]
   E --> H[Entity Extraction]
   F --> H
   G --> H
-  H --> I[Cluster C:\nEntity Resolution HITL]
-  I --> J[Graph Build:\nNodes + Edges + Relationships]
-  J --> K[Cluster D:\nRecursive Reasoning Loop]
+  H --> I["Cluster C:<br/>Entity Resolution HITL"]
+  I --> J["Graph Build:<br/>Nodes + Edges + Relationships"]
+  J --> K["Cluster D:<br/>Recursive Reasoning Loop"]
   K --> L{Evidence Score ≥ 0.80?}
-  L -->|No| M[Iterate:\nNew Queries + Evidence]
+  L -->|No| M["Iterate:<br/>New Queries + Evidence"]
   M --> K
-  L -->|Yes| N[Draft Report Generated\n60-90 seconds]
-  N --> O[Human Review Gate:\nSection-by-Section Approval]
+  L -->|Yes| N["Draft Report Generated<br/>60-90 seconds"]
+  N --> O["Human Review Gate:<br/>Section-by-Section Approval"]
   O --> P{All Sections Approved?}
   P -->|No| Q[Investigator Edits + Re-approves]
   Q --> P
-  P -->|Yes| R[Final Report Locked\nCitation Map Appended]
-  R --> S[Audit Chain Complete:\nReport Hash Stored]
+  P -->|Yes| R["Final Report Locked<br/>Citation Map Appended"]
+  R --> S["Audit Chain Complete:<br/>Report Hash Stored"]
   S --> T([Case Closed])
 
   style A fill:#1B3A5C,color:#fff
@@ -756,21 +756,21 @@ flowchart TD
     <div class="mermaid">
 flowchart LR
   A([File Upload]) --> B{File Type?}
-  B -->|PDF text-based| C[PyMuPDF\nextract text]
-  B -->|PDF scanned| D[Tesseract OCR\nextract text]
-  B -->|Excel / CSV| E[pandas\nparse rows]
-  B -->|Email .msg| F[extract-msg\nparse headers + body]
-  B -->|Word .docx| G[python-docx\nextract paragraphs]
+  B -->|PDF text-based| C["PyMuPDF<br/>extract text"]
+  B -->|PDF scanned| D["Tesseract OCR<br/>extract text"]
+  B -->|Excel / CSV| E["pandas<br/>parse rows"]
+  B -->|Email .msg| F["extract-msg<br/>parse headers + body"]
+  B -->|Word .docx| G["python-docx<br/>extract paragraphs"]
   C --> H[Chunker]
   D --> H
   E --> H
   F --> H
   G --> H
-  H --> I[Document-Type Strategy\nClause / Row-Window / Per-Email]
-  I --> J[Metadata Tagging\nchunk_id · source_doc · page_ref\nentity_tags · date_range]
-  J --> K[Embedding Model\nBGE-M3 via Ollama]
-  K --> L[Qdrant Indexer\nCase-Scoped Namespace]
-  L --> M[Entity Extract\nFeed to Resolution Queue]
+  H --> I["Document-Type Strategy<br/>Clause / Row-Window / Per-Email"]
+  I --> J["Metadata Tagging<br/>chunk_id · source_doc · page_ref<br/>entity_tags · date_range"]
+  J --> K["Embedding Model<br/>BGE-M3 via Ollama"]
+  K --> L["Qdrant Indexer<br/>Case-Scoped Namespace"]
+  L --> M["Entity Extract<br/>Feed to Resolution Queue"]
   L --> N([Queryable Evidence])
 
   style A fill:#1B3A5C,color:#fff
@@ -795,23 +795,23 @@ flowchart LR
     <div class="diagram-title">Three-Tier Entity Resolution</div>
     <div class="mermaid">
 flowchart TD
-  A([Raw Entities from Parser]) --> B[Tier 1: Exact Match\nNational ID · Account No · Tax ID]
+  A([Raw Entities from Parser]) --> B["Tier 1: Exact Match<br/>National ID · Account No · Tax ID"]
   B --> C{Exact match found?}
-  C -->|Yes| D[Auto-Resolve: Merge Nodes\nLog to Audit Chain]
-  D --> E[Notification to Investigator\n24hr Override Window]
-  C -->|No| F[Tier 2: Fuzzy Match\nName variants · Address overlap\nPhonetic similarity]
+  C -->|Yes| D["Auto-Resolve: Merge Nodes<br/>Log to Audit Chain"]
+  D --> E["Notification to Investigator<br/>24hr Override Window"]
+  C -->|No| F["Tier 2: Fuzzy Match<br/>Name variants · Address overlap<br/>Phonetic similarity"]
   F --> G{Confidence Score?}
-  G -->|60–94%| H[BLOCKING: Show HITL Screen\nEvidence For + Against + Score]
+  G -->|60–94%| H["BLOCKING: Show HITL Screen<br/>Evidence For + Against + Score"]
   H --> I{Investigator Decision}
-  I -->|Approve Merge| J[Merge Nodes\nLog Decision + Evidence]
-  I -->|Reject| K[Keep Separate\nLog Decision]
+  I -->|Approve Merge| J["Merge Nodes<br/>Log Decision + Evidence"]
+  I -->|Reject| K["Keep Separate<br/>Log Decision"]
   I -->|Defer| L[Add to Review Queue]
-  G -->|Below 60%| M[Tier 3: Contextual Match\nShared director · address · agent\nTranscript evidence]
-  M --> N[BLOCKING: Show HITL Screen\nThree Options]
+  G -->|Below 60%| M["Tier 3: Contextual Match<br/>Shared director · address · agent<br/>Transcript evidence"]
+  M --> N["BLOCKING: Show HITL Screen<br/>Three Options"]
   N --> O{Investigator Decision}
   O -->|Merge| J
   O -->|Separate Node| K
-  O -->|Alias Edge| P[Link as Related Party\nNot Merged\nLog Relationship]
+  O -->|Alias Edge| P["Link as Related Party<br/>Not Merged<br/>Log Relationship"]
   J --> Q([Graph Build Can Proceed])
   K --> Q
   P --> Q
@@ -840,21 +840,21 @@ flowchart TD
     <div class="diagram-title">Cluster D — Recursive Reasoning Loop</div>
     <div class="mermaid">
 flowchart TD
-  A([Initialise: Case State + Goal + Model Version]) --> B[PLAN\nPlanner: What evidence do I need next?]
-  B --> C[RETRIEVE\nRAG Query + Graph Query]
-  C --> D[ANALYZE\n70B Agent temp=0\nRetrieval-only mode]
-  D --> E[VERIFY\nRetrieval Verifier DETERMINISTIC\nDoes chunk exist? Is claim recoverable?]
+  A([Initialise: Case State + Goal + Model Version]) --> B["PLAN<br/>Planner: What evidence do I need next?"]
+  B --> C["RETRIEVE<br/>RAG Query + Graph Query"]
+  C --> D["ANALYZE<br/>70B Agent temp=0<br/>Retrieval-only mode"]
+  D --> E["VERIFY<br/>Retrieval Verifier DETERMINISTIC<br/>Does chunk exist? Is claim recoverable?"]
   E --> F{Claim passes?}
-  F -->|Yes| G[GROUND\nAttach chunk_id + source + page_ref]
-  F -->|No| H[Strip Claim\nLog to Unverified Register]
-  G --> I[CRITIQUE\nLogical consistency?\nGaps identified?]
+  F -->|Yes| G["GROUND<br/>Attach chunk_id + source + page_ref"]
+  F -->|No| H["Strip Claim<br/>Log to Unverified Register"]
+  G --> I["CRITIQUE<br/>Logical consistency?<br/>Gaps identified?"]
   H --> I
-  I --> J[SCORE\nUpdate 4-component Evidence Score]
-  J --> K{Score ≥ threshold\nAND ≥3 citations?}
+  I --> J["SCORE<br/>Update 4-component Evidence Score"]
+  J --> K{Score ≥ threshold<br/>AND ≥3 citations?}
   K -->|No — continue| L{Iteration ceiling reached?}
   L -->|No| B
-  L -->|Yes| M[Flag: Corpus Exhausted\nSend to Human Review]
-  K -->|Yes| N[Draft Finding Generated\nWith Citation Map]
+  L -->|Yes| M["Flag: Corpus Exhausted<br/>Send to Human Review"]
+  K -->|Yes| N["Draft Finding Generated<br/>With Citation Map"]
   N --> O([Human Review Gate])
 
   style A fill:#1B3A5C,color:#fff
@@ -893,17 +893,17 @@ flowchart TD
     <div class="diagram-title">Cluster E — Pseudonymisation Pipeline</div>
     <div class="mermaid">
 flowchart TD
-  A([Raw Case Data with PII]) --> B[Presidio NER + Custom Recognisers\nDetect: names · IDs · accounts · spoken-form refs]
-  B --> C[Token Map Store\nIn-memory · Encrypted at rest\nNEVER leaves environment]
-  C --> D[Pseudonymised Payload\nNames → IND_T001 · Accounts → ACCT_T089\nAmounts/dates/types RETAINED]
-  D --> E[External SOTA API\nClaude / GPT-4\nReasons on tokens only]
-  E --> F[Tokenised Reasoning Output\nNo real identifiers]
-  F --> G[Human Checkpoint\nInvestigator reviews tokenised output\nChecks for re-identification risk]
+  A([Raw Case Data with PII]) --> B["Presidio NER + Custom Recognisers<br/>Detect: names · IDs · accounts · spoken-form refs"]
+  B --> C["Token Map Store<br/>In-memory · Encrypted at rest<br/>NEVER leaves environment"]
+  C --> D["Pseudonymised Payload<br/>Names → IND_T001 · Accounts → ACCT_T089<br/>Amounts/dates/types RETAINED"]
+  D --> E["External SOTA API<br/>Claude / GPT-4<br/>Reasons on tokens only"]
+  E --> F["Tokenised Reasoning Output<br/>No real identifiers"]
+  F --> G["Human Checkpoint<br/>Investigator reviews tokenised output<br/>Checks for re-identification risk"]
   G --> H{Investigator Approves?}
-  H -->|No| I[Edit or Reject\nLog Decision]
-  H -->|Yes| J[De-tokeniser\nRestores real identifiers\nON-PREMISE ONLY]
+  H -->|No| I["Edit or Reject<br/>Log Decision"]
+  H -->|Yes| J["De-tokeniser<br/>Restores real identifiers<br/>ON-PREMISE ONLY"]
   J --> K[Final Report with Real Names]
-  K --> L[Audit Log:\npseudonymisation event + approval + de-tokenisation timestamp]
+  K --> L["Audit Log:<br/>pseudonymisation event + approval + de-tokenisation timestamp"]
   L --> M([Case Record Complete])
 
   style A fill:#1B3A5C,color:#fff
@@ -930,14 +930,14 @@ flowchart TD
     <div class="diagram-title">Hash-Chain Immutability Design</div>
     <div class="mermaid">
 flowchart LR
-  A[Event 1\nCase Open\npayload_hash: a1b2\nchain_hash: SHA256 a1b2+genesis] --> B[Event 2\nFile Ingestion\npayload_hash: c3d4\nchain_hash: SHA256 c3d4+prev]
-  B --> C[Event 3\nEntity Resolution\npayload_hash: e5f6\nchain_hash: SHA256 e5f6+prev]
-  C --> D[Event N\nHuman Approval\npayload_hash: g7h8\nchain_hash: SHA256 g7h8+prev]
-  D --> E{Daily Anchor\nCluster G active?}
-  E -->|Yes| F[AWS QLDB / Azure Ledger\nExternal Timestamp of chain_hash]
-  E -->|No| G[Institutional-grade integrity\nchain intact internally]
-  F --> H([Court-Grade Integrity\nIndependently Verifiable])
-  G --> I([Institutional-Grade Integrity\nTamper detectable internally])
+  A["Event 1<br/>Case Open<br/>payload_hash: a1b2<br/>chain_hash: SHA256 a1b2+genesis"] --> B["Event 2<br/>File Ingestion<br/>payload_hash: c3d4<br/>chain_hash: SHA256 c3d4+prev"]
+  B --> C["Event 3<br/>Entity Resolution<br/>payload_hash: e5f6<br/>chain_hash: SHA256 e5f6+prev"]
+  C --> D["Event N<br/>Human Approval<br/>payload_hash: g7h8<br/>chain_hash: SHA256 g7h8+prev"]
+  D --> E{Daily Anchor<br/>Cluster G active?}
+  E -->|Yes| F["AWS QLDB / Azure Ledger<br/>External Timestamp of chain_hash"]
+  E -->|No| G["Institutional-grade integrity<br/>chain intact internally"]
+  F --> H(["Court-Grade Integrity<br/>Independently Verifiable"])
+  G --> I(["Institutional-Grade Integrity<br/>Tamper detectable internally"])
 
   style A fill:#1B3A5C,color:#fff
   style H fill:#27AE60,color:#fff
