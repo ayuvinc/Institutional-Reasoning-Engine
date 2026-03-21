@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430">
+  <defs>
+    <style>
+      .t{font:13px Arial,Helvetica,sans-serif;fill:#0f2c46}
+      .h{font:20px Arial,Helvetica,sans-serif;font-weight:700;fill:#0b2239}
+      .b{fill:#edf4ff;stroke:#2e6da4;stroke-width:2}
+      .g{fill:#ecf9f1;stroke:#2c9c61;stroke-width:2}
+      .a{stroke:#29445f;stroke-width:2;marker-end:url(#m)}
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#29445f"/>
+    </marker>
+  </defs>
+
+  <text x="30" y="36" class="h">IRE Case Lifecycle (Simplified)</text>
+
+  <rect x="30" y="90" width="170" height="70" class="b" rx="10"/><text x="48" y="130" class="t">1. Intake & Scope</text>
+  <rect x="230" y="90" width="170" height="70" class="b" rx="10"/><text x="242" y="130" class="t">2. Ingest Evidence</text>
+  <rect x="430" y="90" width="170" height="70" class="b" rx="10"/><text x="440" y="130" class="t">3. Verify & Ground</text>
+  <rect x="630" y="90" width="170" height="70" class="b" rx="10"/><text x="644" y="130" class="t">4. Reasoning Loop</text>
+  <rect x="830" y="90" width="170" height="70" class="g" rx="10"/><text x="842" y="130" class="t">5. Human Review</text>
+  <rect x="1030" y="90" width="150" height="70" class="b" rx="10"/><text x="1042" y="130" class="t">6. Final Finding</text>
+
+  <line x1="200" y1="125" x2="228" y2="125" class="a"/>
+  <line x1="400" y1="125" x2="428" y2="125" class="a"/>
+  <line x1="600" y1="125" x2="628" y2="125" class="a"/>
+  <line x1="800" y1="125" x2="828" y2="125" class="a"/>
+  <line x1="1000" y1="125" x2="1028" y2="125" class="a"/>
+
+  <rect x="370" y="240" width="450" height="130" class="g" rx="10"/>
+  <text x="390" y="275" class="t">Continuous controls across all steps:</text>
+  <text x="390" y="305" class="t">• Audit logging and hash-chain integrity</text>
+  <text x="390" y="330" class="t">• Model/version pinning and bias monitoring</text>
+  <text x="390" y="355" class="t">• Case-scoped isolation and access controls</text>
+</svg>

@@ -167,6 +167,17 @@ Investigations Leader | AI-Powered Investigation Systems | CFE
 
 ---
 
+
+## Start Here
+
+- Non-technical onboarding: [docs/start-here.md](./docs/start-here.md)
+- Deployment profile checklists: [checklists/profiles/](./checklists/profiles/)
+- Architecture diagrams: [architecture/](./architecture/)
+- Versioned release + checksums: [releases/v1.1/](./releases/v1.1/)
+- Community setup: [docs/community.md](./docs/community.md)
+
+---
+
 ## Web Hosting (GitHub Pages)
 
 This repository includes a ready-to-host site under `docs/`:
