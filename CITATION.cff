@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "Institutional Reasoning Engines: A Modular Architecture for AI-Powered Regulated Investigation"
+message: "If you use this work, please cite it as below."
+type: report
+authors:
+  - family-names: "Kaushal"
+    given-names: "Aditya"
+version: "1.1"
+date-released: "2026-03-21"
+license: "CC-BY-NC-4.0"
+url: "https://github.com/ayuvinc/Institutional-Reasoning-Engine"

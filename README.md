@@ -155,6 +155,18 @@ Investigations Leader | AI-Powered Investigation Systems | CFE
 
 ---
 
+
+## Project Governance
+
+- Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Code of conduct: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- Security policy: [SECURITY.md](./SECURITY.md)
+- Changelog: [CHANGELOG.md](./CHANGELOG.md)
+- Roadmap: [ROADMAP.md](./ROADMAP.md)
+- Citation metadata: [CITATION.cff](./CITATION.cff)
+
+---
+
 ## Web Hosting (GitHub Pages)
 
 This repository includes a ready-to-host site under `docs/`:
@@ -167,8 +179,7 @@ To host publicly on GitHub Pages:
 
 1. Push this repository to GitHub.
 2. Open **Settings → Pages**.
-3. Set source to **Deploy from a branch**.
-4. Choose branch **main** and folder **/docs**.
+3. Set source to **GitHub Actions** (workflow is already included in `.github/workflows/pages.yml`).
 
 Your site URL will be:
 
