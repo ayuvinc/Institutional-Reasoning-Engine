@@ -50,6 +50,10 @@ yarn-error.log*
 logs/
 *.log.*
 
+# ── INTERNAL — LOCAL ONLY, NEVER COMMIT ───────────────────────
+# Full-cost versions and working files — stay on this machine only
+internal/
+
 # ── SENSITIVE — NEVER COMMIT ──────────────────────────────────
 # API keys, tokens, credentials
 *.key
