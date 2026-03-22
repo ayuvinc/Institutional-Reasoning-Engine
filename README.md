@@ -2,7 +2,7 @@
 
 > A modular architecture for AI-powered regulated investigation. 8 universal base components · 7 plug-and-play clusters · 6 deployment profiles. From interview-only setups to full financial crime platforms. Applicable to any regulated investigation in any industry or jurisdiction.
 
-**Version 1.1 · March 2026 · © 2026 Aditya Kaushal**
+**Version 1.2 · March 2026 · © 2026 Aditya Kaushal**
 
 ---
 
@@ -24,9 +24,10 @@ This is not a chatbot. It is not automation. It is a professional investigation 
 
 | File | Description |
 |------|-------------|
-| `IRE_v1.1_Final.docx` | Complete whitepaper — 54 pages, all architecture, clusters, deployment profiles, worked case walkthrough, operational appendices |
-| `IRE_v1.1_Final.pdf` | PDF version of the whitepaper |
-| `IRE_Builder_Guide.html` | Interactive single-file build guide — tools, costs, workflows, Mermaid flowcharts, AI coding guidance for non-technical founders |
+| [`releases/v1.2/IRE_v1.2_Final.pdf`](./releases/v1.2/IRE_v1.2_Final.pdf) | Whitepaper v1.2 — 59 pages, full architecture, clusters, deployment profiles, adversarial critic, investigator accountability schema, worked case walkthrough |
+| [`releases/v1.2/IRE_Builder_Guide_v1.2.html`](./releases/v1.2/IRE_Builder_Guide_v1.2.html) | Interactive build guide — tools, workflows, static flowcharts, investigator UX screens, AI coding guidance |
+| [`docs/ire-builder-guide.html`](./docs/ire-builder-guide.html) | Hosted version of the builder guide (GitHub Pages) |
+| [`releases/v1.1/`](./releases/v1.1/) | Version 1.1 archive |
 
 ---
 
@@ -76,22 +77,33 @@ Every regulated investigation system must implement all eight. No exceptions.
 
 ## The Builder Guide
 
-`IRE_Builder_Guide.html` is a standalone interactive website — open it in any browser, no server required. It covers:
+The interactive builder guide is available at [`docs/ire-builder-guide.html`](./docs/ire-builder-guide.html) and hosted on GitHub Pages. It covers:
 
 - **Prerequisites** — what to document before you write a line of code
-- **Tools & Subscriptions** — every tool needed, free and paid, with costs in USD and INR
-- **Cost Breakdown** — monthly running costs by profile
+- **Tools & Subscriptions** — every tool needed, free and paid
 - **Build Phases** — 6-phase sequence, each delivering standalone value
-- **Workflows & Flowcharts** — Mermaid diagrams for every major process
+- **Workflows** — static flowchart diagrams for every major process
   - End-to-end case lifecycle
   - Document ingestion pipeline
   - Entity resolution (3-tier HITL)
   - Recursive reasoning loop
   - Privacy gateway / pseudonymisation
   - Audit chain / hash-chain design
-- **Per-Cluster Build Guide** — tools, costs, exit criteria for Clusters A through G
+- **Investigator UX** — five critical decision screens documented in full
+- **Per-Cluster Build Guide** — tools and exit criteria for Clusters A through G
 - **Building With AI Tools** — which AI coding tools to use for which tasks, with sample prompts
-- **FAQ** — 8 common questions including Indian regulatory context (RBI, PMLA, SEBI)
+- **FAQ** — common questions including Indian regulatory context (RBI, PMLA, SEBI)
+
+---
+
+## What's New in v1.2
+
+- **Adversarial Critic (Section 7.4)** — active hypothesis invalidation; blocks confirmation bias by design
+- **Investigator Accountability Schema (Section 12.3)** — 8-field approval record with rubber-stamp detection
+- **Investigator UX** — five critical decision screens (builder guide)
+- **Data Messiness section** — seven production blockers with detection and fixes (builder guide)
+
+See [CHANGELOG.md](./CHANGELOG.md) for the full diff.
 
 ---
 
@@ -101,7 +113,7 @@ Every regulated investigation system must implement all eight. No exceptions.
 
 **Human gates are architectural, not optional.** The Human Review Gate (B4) is a mandatory base component. There is no finding without an approval event in the audit chain. This is enforced by architecture, not policy.
 
-**Tamper-evident by default; court-grade with Cluster G.** The mandatory base produces institutional-grade audit integrity. Cluster G (External Notarisation + Transcript Chain of Custody) elevates to independently verifiable court-grade integrity.
+**Tamper-evident by default; independently verifiable with Cluster G.** The mandatory base produces institutional-grade audit integrity. Cluster G elevates to independently verifiable integrity — provable by a third party without trusting your systems.
 
 **Modularity without fragmentation.** No cluster replaces a base component. Clusters add capability. The base establishes defensibility.
 
@@ -122,9 +134,9 @@ Every regulated investigation system must implement all eight. No exceptions.
 If you reference this work in research, publications, or product design:
 
 ```
-Kaushal, A. (2026). Institutional Reasoning Engines: A Modular Architecture for 
-AI-Powered Regulated Investigation (Version 1.1). 
-https://github.com/[username]/institutional-reasoning-engine
+Kaushal, A. (2026). Institutional Reasoning Engines: A Modular Architecture for
+AI-Powered Regulated Investigation (Version 1.2).
+https://github.com/ayuvinc/Institutional-Reasoning-Engine
 ```
 
 ---
@@ -145,53 +157,31 @@ Full license text: [LICENSE](./LICENSE)
 
 ## Author
 
-**Aditya Kaushal**  
-Investigations Leader | AI-Powered Investigation Systems | CFE  
+**Aditya Kaushal**
+Investigations Leader | AI-Powered Investigation Systems | CFE
 *In collaboration with Claude (Anthropic)*
 
 ---
 
-*© 2026 Aditya Kaushal. All Rights Reserved.*
-
----
-
-
 ## Project Governance
 
-- Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
-- Code of conduct: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
-- Security policy: [SECURITY.md](./SECURITY.md)
-- Changelog: [CHANGELOG.md](./CHANGELOG.md)
-- Roadmap: [ROADMAP.md](./ROADMAP.md)
-- Citation metadata: [CITATION.cff](./CITATION.cff)
+- [CHANGELOG.md](./CHANGELOG.md) — full version history
+- [ROADMAP.md](./ROADMAP.md) — planned future work
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — contribution guide
+- [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- [SECURITY.md](./SECURITY.md)
+- [CITATION.cff](./CITATION.cff) — citation metadata
 
 ---
 
+## Quick Links
 
-## Start Here
-
-- Non-technical onboarding: [docs/start-here.md](./docs/start-here.md)
-- Deployment profile checklists: [checklists/profiles/](./checklists/profiles/)
-- Architecture diagrams: [architecture/](./architecture/)
-- Versioned release + checksums: [releases/v1.1/](./releases/v1.1/)
-- Community setup: [docs/community.md](./docs/community.md)
+- **Hosted builder guide:** [GitHub Pages](https://ayuvinc.github.io/Institutional-Reasoning-Engine/)
+- **Download whitepaper (PDF):** [`releases/v1.2/IRE_v1.2_Final.pdf`](./releases/v1.2/IRE_v1.2_Final.pdf)
+- **Deployment checklists:** [`checklists/profiles/`](./checklists/profiles/)
+- **Architecture diagrams:** [`architecture/`](./architecture/)
+- **Latest release:** [`releases/v1.2/`](./releases/v1.2/)
 
 ---
 
-## Web Hosting (GitHub Pages)
-
-This repository includes a ready-to-host site under `docs/`:
-
-- `docs/index.html` — public landing page
-- `docs/ire-builder-guide.html` — interactive guide
-- `docs/downloads/` — downloadable PDF and DOCX whitepaper
-
-To host publicly on GitHub Pages:
-
-1. Push this repository to GitHub.
-2. Open **Settings → Pages**.
-3. Set source to **GitHub Actions** (workflow is already included in `.github/workflows/pages.yml`).
-
-Your site URL will be:
-
-`https://<github-username>.github.io/<repo-name>/`
+*© 2026 Aditya Kaushal. All Rights Reserved.*

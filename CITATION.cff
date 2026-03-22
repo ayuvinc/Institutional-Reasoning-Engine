@@ -5,7 +5,7 @@ type: report
 authors:
   - family-names: "Kaushal"
     given-names: "Aditya"
-version: "1.1"
-date-released: "2026-03-21"
+version: "1.2"
+date-released: "2026-03-22"
 license: "CC-BY-NC-4.0"
 url: "https://github.com/ayuvinc/Institutional-Reasoning-Engine"

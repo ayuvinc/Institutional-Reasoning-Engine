@@ -1,5 +1,9 @@
 # Roadmap
 
+## Shipped
+
+- [x] v1.2 — Adversarial Critic, Investigator Accountability Schema, Investigator UX screens, Data Messiness section (March 2026)
+
 ## Near Term
 
 - Add a plain-language "Start Here" one-page primer for non-technical audiences.
@@ -8,9 +12,9 @@
 
 ## Mid Term
 
-- Publish v1.2 with expanded implementation examples by deployment profile.
 - Add reference architecture stubs for cloud/on-prem/hybrid.
 - Add compliance mapping appendix by jurisdiction (advisory only).
+- Add expanded implementation examples by deployment profile.
 
 ## Long Term
 
