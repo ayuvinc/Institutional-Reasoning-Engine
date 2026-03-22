@@ -423,29 +423,29 @@ graph TD
 <!-- ═══════ COSTS ═══════ -->
 <div class="section" id="s-costs">
 <h1 class="page-title">Cost <span>Breakdown</span></h1>
-<p class="page-sub">What it actually costs to build and run an IRE at different scales. USD primary, INR in brackets.</p>
+<p class="page-sub">Detailed cost figures available on request. Contact for pricing information.</p>
 <div class="callout ok"><div class="cl">The Honest Summary</div>
-<p>The majority of the stack is free and open source. Main costs are: cloud compute for local AI models ($100–$400/month), SOTA API calls for final reasoning ($500–$1,500/month at 200 cases/month), and developer time to build it. A functioning Profile 3 system can run under $150/month.</p></div>
+<p>The majority of the stack is free and open source. Costs scale with deployment profile and case volume. Contact us for a detailed cost model tailored to your organisation.</p></div>
 <h2 class="sh">One-Time Build Costs</h2>
 <div class="tw"><table>
   <tr><th>Item</th><th>USD</th><th>INR</th></tr>
-  <tr><td>Developer time — Profile 3 MVP</td><td>$3,000–$8,000</td><td>₹2.5L–₹6.7L</td></tr>
-  <tr><td>Legal review — AI-in-investigation policies</td><td>$500–$2,000</td><td>₹42K–₹1.7L</td></tr>
-  <tr><td>Security review</td><td>$1,000–$3,000</td><td>₹84K–₹2.5L</td></tr>
-  <tr><td>Domain + SSL (optional web interface)</td><td>$15–$50/year</td><td>₹1,260–₹4,200/year</td></tr>
+  <tr><td>Developer time — Profile 3 MVP</td><td>****</td><td>****</td></tr>
+  <tr><td>Legal review — AI-in-investigation policies</td><td>****</td><td>****</td></tr>
+  <tr><td>Security review</td><td>****</td><td>****</td></tr>
+  <tr><td>Domain + SSL (optional web interface)</td><td>****</td><td>****</td></tr>
 </table></div>
 <h2 class="sh">Monthly Running Costs by Profile</h2>
 <div class="tw"><table>
   <tr><th>Profile</th><th>Cases/Month</th><th>USD/Month</th><th>INR/Month</th><th>Main Cost Driver</th></tr>
-  <tr><td><strong>1 — Minimal</strong></td><td>1–20</td><td>$20–$50</td><td>₹1,680–₹4,200</td><td>Cloud VM only. No AI API cost.</td></tr>
-  <tr><td><strong>2 — Interview-Led</strong></td><td>10–50</td><td>$30–$80</td><td>₹2,520–₹6,720</td><td>VM + Whisper STT compute.</td></tr>
-  <tr><td><strong>3 — Document Investigation</strong></td><td>20–100</td><td>$80–$200</td><td>₹6,720–₹16,800</td><td>VM + optional SOTA API.</td></tr>
-  <tr><td><strong>4 — Corporate Fraud</strong></td><td>50–200</td><td>$200–$500</td><td>₹16,800–₹42,000</td><td>VM with 70B GPU model + Neo4j.</td></tr>
-  <tr><td><strong>5 — Financial Crime</strong></td><td>100–500</td><td>$600–$2,000</td><td>₹50,400–₹1,68,000</td><td>GPU compute + SOTA API ($500–$1,500).</td></tr>
-  <tr><td><strong>6 — Enterprise Forensic</strong></td><td>500+</td><td>$2,000–$6,000</td><td>₹1,68,000–₹5,04,000</td><td>Full stack + fine-tuning + notarisation.</td></tr>
+  <tr><td><strong>1 — Minimal</strong></td><td>****</td><td>****</td><td>****</td><td>Cloud VM only. No AI API cost.</td></tr>
+  <tr><td><strong>2 — Interview-Led</strong></td><td>****</td><td>****</td><td>****</td><td>VM + Whisper STT compute.</td></tr>
+  <tr><td><strong>3 — Document Investigation</strong></td><td>****</td><td>****</td><td>****</td><td>VM + optional SOTA API.</td></tr>
+  <tr><td><strong>4 — Corporate Fraud</strong></td><td>****</td><td>****</td><td>****</td><td>VM with 70B GPU model + Neo4j.</td></tr>
+  <tr><td><strong>5 — Financial Crime</strong></td><td>****</td><td>****</td><td>****</td><td>GPU compute + SOTA API.</td></tr>
+  <tr><td><strong>6 — Enterprise Forensic</strong></td><td>****</td><td>****</td><td>****</td><td>Full stack + fine-tuning + notarisation.</td></tr>
 </table></div>
 <div class="callout"><div class="cl">Cost Optimisation Tips</div>
-<p>Use <strong>spot/preemptible instances</strong> for GPU compute — 60–70% cheaper. <strong>Only run 70B model when needed</strong> — use 8B for orchestration. <strong>Batch SOTA API calls</strong> — one per section, not per claim. <strong>Cache embeddings</strong> — documents don't need re-embedding unless changed.</p></div>
+<p>Use <strong>spot/preemptible instances</strong> for GPU compute — significantly cheaper. <strong>Only run the large model when needed</strong> — use the smaller model for orchestration. <strong>Batch SOTA API calls</strong> — one per section, not per claim. <strong>Cache embeddings</strong> — documents don't need re-embedding unless changed.</p></div>
 </div>
 
 <!-- ═══════ PHASES ═══════ -->
