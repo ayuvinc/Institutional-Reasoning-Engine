@@ -4,30 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IRE Builder Guide — Institutional Reasoning Engines</title>
-<script>
-// Inline Mermaid loader — loads from CDN after page ready
-window.addEventListener('load', function() {
-  var s = document.createElement('script');
-  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js';
-  s.onload = function() {
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: 'default',
-      themeVariables: {
-        primaryColor: '#1B3A5C',
-        primaryTextColor: '#ffffff',
-        primaryBorderColor: '#2E6DA4',
-        lineColor: '#2E6DA4',
-        secondaryColor: '#D5E8F0',
-        tertiaryColor: '#F4F6F9'
-      },
-      flowchart: { htmlLabels: true, curve: 'basis' }
-    });
-    mermaid.run({ querySelector: '.mermaid' });
-  };
-  document.head.appendChild(s);
-});
-</script>
+
 <style>
 :root {
   --navy:#1B3A5C; --mid:#2E6DA4; --light:#D5E8F0;
@@ -130,7 +107,6 @@ tr:last-child td{border-bottom:none}
   box-shadow:0 2px 7px rgba(0,0,0,.07);overflow-x:auto}
 .dt{font-size:12px;font-weight:700;color:var(--mid);margin-bottom:14px;
   letter-spacing:.5px;text-transform:uppercase}
-.mermaid{min-height:80px}
 
 /* Steps */
 .steps{margin:16px 0}
@@ -260,37 +236,7 @@ Use the whitepaper to establish <em>why</em>. Use this guide to establish <em>ho
 <h1 class="page-title">Architecture <span>at a Glance</span></h1>
 <p class="page-sub">Two layers: a mandatory base every deployment must include, and modular clusters that activate based on your investigation context.</p>
 <div class="dw"><div class="dt">Full IRE Architecture — Base + 7 Clusters</div>
-<div class="mermaid">
-graph TD
-  subgraph BASE["🔒 MANDATORY BASE — Always Active"]
-    B1[B1 Case Isolation] --- B2[B2 Retrieval Verifier]
-    B2 --- B3[B3 Evidence Grounder]
-    B3 --- B4[B4 Human Review Gate]
-    B4 --- B5[B5 Audit Logger]
-    B5 --- B6[B6 Hash Chain]
-    B6 --- B7[B7 Model Pinning]
-    B7 --- B8[B8 Bias Monitor]
-  end
-  subgraph CLUSTERS["📦 MODULAR CLUSTERS"]
-    CA[Cluster A\nDocumentary]
-    CB[Cluster B\nBehavioural]
-    CC[Cluster C\nNetwork]
-    CD[Cluster D\nReasoning]
-    CE[Cluster E\nPrivacy]
-    CF[Cluster F\nMemory]
-    CG[Cluster G\nIntegrity]
-  end
-  BASE --> CLUSTERS
-  CA --> CC
-  CA --> CD
-  CB --> CC
-  CC --> CD
-  CD --> CE
-  CD --> CF
-  BASE --> CG
-  style BASE fill:#1B3A5C,color:#fff,stroke:#2E6DA4
-  style CLUSTERS fill:#EBF5FB,stroke:#2E6DA4,color:#1B3A5C
-</div></div>
+<img src="diagrams/diagram-1.svg" alt="Diagram 1" style="width:100%;max-width:100%;display:block;"></div>
 <h2 class="sh">The 8 Mandatory Base Components</h2>
 <div class="tw"><table>
   <tr><th>#</th><th>Component</th><th>Plain English</th><th>Why Non-Negotiable</th></tr>
@@ -504,33 +450,7 @@ graph TD
 <h1 class="page-title">Workflow: <span>End-to-End Case Flow</span></h1>
 <p class="page-sub">How a case moves through the full IRE system — from opening to locked report.</p>
 <div class="dw"><div class="dt">Full Case Lifecycle</div>
-<div class="mermaid">
-flowchart TD
-  A([Investigator Opens Case]) --> B[Case Namespace Created\nAudit Chain Initialised]
-  B --> C[Evidence Upload]
-  C --> D{Evidence Type?}
-  D -->|Documents| E[Cluster A: Ingest → Chunk → Embed → Index]
-  D -->|Transcripts| F[Cluster B: Transcribe → Chunk → PII Scrub → Index]
-  E --> G[Entity Extraction]
-  F --> G
-  G --> H[Cluster C: Entity Resolution HITL]
-  H --> I[Graph Build: Nodes + Edges]
-  I --> J[Cluster D: Recursive Reasoning Loop]
-  J --> K{Score >= 0.80?}
-  K -->|No| L[Iterate: New Queries]
-  L --> J
-  K -->|Yes| M[Draft Report Generated in 60-90s]
-  M --> N[Human Review Gate:\nSection-by-Section Approval]
-  N --> O{All Approved?}
-  O -->|No| P[Investigator Edits]
-  P --> N
-  O -->|Yes| Q[Final Report Locked\nCitation Map Appended]
-  Q --> R[Audit Chain Complete:\nReport Hash Stored]
-  R --> S([Case Closed])
-  style A fill:#1B3A5C,color:#fff
-  style S fill:#27AE60,color:#fff
-  style N fill:#D4A017,color:#fff
-</div></div>
+<img src="diagrams/diagram-2.svg" alt="Diagram 2" style="width:100%;max-width:100%;display:block;"></div>
 <h2 class="sh">Investigator Accountability Schema</h2>
 <p>Logging that a human approved a finding is necessary but not sufficient. For outputs to be genuinely audit-ready, the approval record must capture the quality and basis of the human judgment — not just the fact that it occurred.</p>
 <div class="tw"><table>
@@ -565,28 +485,7 @@ flowchart TD
 <h1 class="page-title">Workflow: <span>Document Ingestion</span></h1>
 <p class="page-sub">How a document goes from upload to queryable evidence in the case namespace.</p>
 <div class="dw"><div class="dt">Cluster A — Document Ingestion Pipeline</div>
-<div class="mermaid">
-flowchart LR
-  A([File Upload]) --> B{File Type?}
-  B -->|PDF text| C[PyMuPDF]
-  B -->|PDF scanned| D[Tesseract OCR]
-  B -->|Excel/CSV| E[pandas]
-  B -->|Email| F[extract-msg]
-  B -->|Word| G[python-docx]
-  C --> H[Chunker]
-  D --> H
-  E --> H
-  F --> H
-  G --> H
-  H --> I[Document-Type Strategy]
-  I --> J[Metadata Tagging\nchunk_id · source · page_ref\nentity_tags · date_range]
-  J --> K[Embedding Model\nBGE-M3 via Ollama]
-  K --> L[Qdrant Indexer\nCase-Scoped Namespace]
-  L --> M[Entity Extract\nFeed to Resolution Queue]
-  L --> N([Queryable Evidence])
-  style A fill:#1B3A5C,color:#fff
-  style N fill:#27AE60,color:#fff
-</div></div>
+<img src="diagrams/diagram-3.svg" alt="Diagram 3" style="width:100%;max-width:100%;display:block;"></div>
 <div class="callout warn"><div class="cl">Most Common Ingestion Failures</div>
 <p><strong>Scanned PDFs without OCR layer:</strong> If PyMuPDF returns no text, auto-route to Tesseract. <strong>Password-protected files:</strong> Require investigator to decrypt before upload. <strong>Non-standard CSV encodings:</strong> Detect encoding with chardet before parsing.</p></div>
 </div>
@@ -596,33 +495,7 @@ flowchart LR
 <h1 class="page-title">Workflow: <span>Entity Resolution</span></h1>
 <p class="page-sub">How the system determines "Rajesh Kumar", "R. Kumar", and "RJSH_KMR" are the same person — and what happens when it is not sure.</p>
 <div class="dw"><div class="dt">Three-Tier Entity Resolution</div>
-<div class="mermaid">
-flowchart TD
-  A([Raw Entities from Parser]) --> B[Tier 1: Exact Match\nNational ID · Account No · Tax ID]
-  B --> C{Exact match found?}
-  C -->|Yes| D[Auto-Resolve: Merge Nodes\nLog to Audit Chain]
-  D --> E[Notify Investigator\n24hr Override Window]
-  C -->|No| F[Tier 2: Fuzzy Match\nName variants · Address · Phonetic]
-  F --> G{Confidence?}
-  G -->|60-94%| H[BLOCKING: HITL Screen\nEvidence For + Against + Score]
-  H --> I{Investigator Decision}
-  I -->|Approve| J[Merge + Log]
-  I -->|Reject| K[Keep Separate + Log]
-  I -->|Defer| L[Add to Queue]
-  G -->|Below 60%| M[Tier 3: Contextual Match\nShared director · address · agent]
-  M --> N[BLOCKING: HITL Screen\nThree Options]
-  N --> O{Decision}
-  O -->|Merge| J
-  O -->|Separate| K
-  O -->|Alias Edge| P[Link as Related Party\nNot Merged + Log]
-  J --> Q([Graph Build Proceeds])
-  K --> Q
-  P --> Q
-  style A fill:#1B3A5C,color:#fff
-  style Q fill:#27AE60,color:#fff
-  style H fill:#D4A017,color:#fff
-  style N fill:#D4A017,color:#fff
-</div></div>
+<img src="diagrams/diagram-4.svg" alt="Diagram 4" style="width:100%;max-width:100%;display:block;"></div>
 <div class="callout danger"><div class="cl">Critical: Do Not Skip Entity Resolution</div>
 <p>A 10% entity duplication rate in a 500-node graph produces 50 phantom nodes — enough to break circular flow detection entirely. Build Tier 2/3 resolution before building the graph layer.</p></div>
 </div>
@@ -632,29 +505,7 @@ flowchart TD
 <h1 class="page-title">Workflow: <span>Recursive Reasoning Loop</span></h1>
 <p class="page-sub">How the AI forms a hypothesis, tests it against evidence, and iterates until confident or flagged. This is Cluster D — the reasoning engine.</p>
 <div class="dw"><div class="dt">Cluster D — Recursive Reasoning Loop</div>
-<div class="mermaid">
-flowchart TD
-  A([Initialise: Case State + Goal + Model Version]) --> B[PLAN\nWhat evidence do I need next?]
-  B --> C[RETRIEVE\nRAG Query + Graph Query]
-  C --> D[ANALYZE\n70B Agent temp=0\nRetrieval-only mode]
-  D --> E[VERIFY — DETERMINISTIC\nDoes chunk exist? Is claim recoverable?]
-  E --> F{Claim passes?}
-  F -->|Yes| G[GROUND\nAttach chunk_id + source + page_ref]
-  F -->|No| H[Strip Claim\nLog to Unverified Register]
-  G --> I[CRITIQUE\nLogical consistency + Gaps]
-  H --> I
-  I --> J[SCORE\nUpdate 4-component Evidence Score]
-  J --> K{Score >= threshold\nAND >= 3 citations?}
-  K -->|No| L{Ceiling reached?}
-  L -->|No| B
-  L -->|Yes| M[Flag: Send to Human Review]
-  K -->|Yes| N[Draft Finding + Citation Map]
-  N --> O([Human Review Gate])
-  style A fill:#1B3A5C,color:#fff
-  style O fill:#D4A017,color:#fff
-  style M fill:#C0392B,color:#fff
-  style E fill:#2E6DA4,color:#fff
-</div></div>
+<img src="diagrams/diagram-5.svg" alt="Diagram 5" style="width:100%;max-width:100%;display:block;"></div>
 <h2 class="sh">Evidence Score Thresholds</h2>
 <div class="cards">
   <div class="card"><h4>0.80 — Section Lock</h4><p>Individual report sections lock at this score. Still requires minimum 3 citations.</p></div>
@@ -668,25 +519,7 @@ flowchart TD
 <h1 class="page-title">Workflow: <span>Privacy Gateway</span></h1>
 <p class="page-sub">How PII is removed before data reaches any external AI, and restored only after investigator approval — inside your environment.</p>
 <div class="dw"><div class="dt">Cluster E — Pseudonymisation Pipeline</div>
-<div class="mermaid">
-flowchart TD
-  A([Raw Case Data with PII]) --> B[Presidio NER + Custom Recognisers\nDetect: names · IDs · accounts · spoken refs]
-  B --> C[Token Map Store\nIn-memory · Encrypted · Never leaves environment]
-  C --> D[Pseudonymised Payload\nNames to IND_T001 · Accounts to ACCT_T089\nAmounts/dates/types RETAINED]
-  D --> E[External SOTA API\nReasons on tokens only]
-  E --> F[Tokenised Reasoning Output]
-  F --> G[Human Checkpoint\nCheck for re-identification risk]
-  G --> H{Investigator Approves?}
-  H -->|No| I[Edit or Reject + Log]
-  H -->|Yes| J[De-tokeniser\nRestores real identifiers\nON-PREMISE ONLY]
-  J --> K[Final Report with Real Names]
-  K --> L[Audit Log: pseudonymisation + approval + de-tokenisation]
-  L --> M([Complete])
-  style A fill:#1B3A5C,color:#fff
-  style M fill:#27AE60,color:#fff
-  style G fill:#D4A017,color:#fff
-  style E fill:#2E6DA4,color:#fff
-</div></div>
+<img src="diagrams/diagram-6.svg" alt="Diagram 6" style="width:100%;max-width:100%;display:block;"></div>
 <div class="callout warn"><div class="cl">Known Limitation — Inference Re-Identification</div>
 <p>Pseudonymisation controls what enters the AI — not what it infers. A model given pseudonymised data may produce output that, combined with other information, re-identifies a data subject. The Human Checkpoint is the primary control. Get legal counsel to review your approach before going live.</p></div>
 </div>
@@ -696,20 +529,7 @@ flowchart TD
 <h1 class="page-title">Workflow: <span>Audit Chain</span></h1>
 <p class="page-sub">How every action is permanently recorded and cryptographically linked — making tampering mathematically detectable.</p>
 <div class="dw"><div class="dt">Hash-Chain Immutability Design</div>
-<div class="mermaid">
-flowchart LR
-  A[Event 1: Case Open\npayload_hash: a1b2\nchain_hash: SHA256] --> B[Event 2: File Ingestion\npayload_hash: c3d4\nchain_hash: SHA256 + prev]
-  B --> C[Event 3: Entity Resolution\npayload_hash: e5f6\nchain_hash: SHA256 + prev]
-  C --> D[Event N: Human Approval\npayload_hash: g7h8\nchain_hash: SHA256 + prev]
-  D --> E{Cluster G Active?}
-  E -->|Yes| F[AWS QLDB\nExternal Timestamp]
-  E -->|No| G[Institutional-grade\nTamper detectable internally]
-  F --> H([Independently Verifiable Audit Integrity\nIndependently Verifiable])
-  G --> I([Institutional-Grade Integrity])
-  style A fill:#1B3A5C,color:#fff
-  style H fill:#27AE60,color:#fff
-  style I fill:#2E6DA4,color:#fff
-</div></div>
+<img src="diagrams/diagram-7.svg" alt="Diagram 7" style="width:100%;max-width:100%;display:block;"></div>
 <h2 class="sh">What Gets Logged</h2>
 <div class="tw"><table>
   <tr><th>Event</th><th>Key Fields</th><th>Why It Matters</th></tr>
